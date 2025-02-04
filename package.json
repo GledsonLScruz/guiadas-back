@@ -1,0 +1,11 @@
+{
+  "name": "guiadas",
+  "version": "1.0.0",
+  "description": "a project for web development principles class of 2024.2 in UFCG university, about a system for students to evaluate teachers class performance",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
