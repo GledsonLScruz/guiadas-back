@@ -7,30 +7,16 @@ import { Criteria } from './models/criteria';
 import { Class } from './models/class';
 import { Evaluation } from "./models/evaluation";
 import Professor from "./models/professor";
+import userController from './controllers/userController';
 
 dotenv.config();
 const app = express();
 app.use(express.json());
-const userRepo = new UserRepository();
 
 
-app.post("/users", async (req, res) => {
-    try {
-        const { name, email, password } = req.body;
-        const user = await userRepo.createUser(name, email, password);
-        res.json(user); // Retorna o usuário criado
-    } catch (error: any) {
-        res.status(500).json({ message: "Erro ao criar o usuário", error: error.message });
-    }
-});
-app.get("/users", async (req, res) => {
-    try {
-        const users = await userRepo.getAllUsers();
-        res.json(users); // Retorna todos os usuários
-    } catch (error: any) {
-        res.status(500).json({ message: "Erro ao obter os usuários", error: error.message });
-    }
-});
+app.use('/api/Users', userController);
+
+
 // Testando a conexão e inicializando o servidor
 sequelize.sync({ force: true }).then(() => {
     console.log("Banco de dados conectado!");
@@ -45,3 +31,5 @@ async function seedDb() {
     let newClass = await Class.create({ name: "Principios desenvolvimento Web", semester: "2024.2", courseId: course.id });
     let newProfessor = await Professor.create({ name: "Dalton" });
 }
+
+const userRepo = new UserRepository();
