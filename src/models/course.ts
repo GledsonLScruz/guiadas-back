@@ -1,22 +1,22 @@
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
 
-// Define the attributes for the Professor model
-interface ProfessorAttributes {
+// Define the attributes for the Course model
+interface CourseAttributes {
     id: number;
     name: string;
 }
 
 // Create an interface for creation attributes, making 'id' optional
-export interface ProfessorCreationAttributes extends Optional<ProfessorAttributes, 'id'> { }
+export interface CourseCreationAttributes extends Optional<CourseAttributes, 'id'> { }
 
-export class Professor extends Model<ProfessorAttributes, ProfessorCreationAttributes> implements ProfessorAttributes {
+export class Course extends Model<CourseAttributes, CourseCreationAttributes> implements CourseAttributes {
     public id!: number;
     public name!: string;
 }
 
 // Initialize the model with database fields
-Professor.init(
+Course.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -30,9 +30,9 @@ Professor.init(
     },
     {
         sequelize,
-        tableName: "professors",
+        tableName: "courses",
         timestamps: false,
     }
 );
 
-export default Professor;
+export default Course;
