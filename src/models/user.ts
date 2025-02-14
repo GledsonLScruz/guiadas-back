@@ -1,13 +1,16 @@
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
+import Course from './course';
 
 // Defina os atributos do modelo
 
 interface UserAttributes {
     id: number;
-    name: string;
+    username: string;
     email: string;
     password: string;
+    startSemester: string;
+    enrolledCourseId: string;
 }
 
 // Cria a interface para os atributos necessários na criação,
@@ -17,9 +20,11 @@ export interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {
 export class User extends Model<UserAttributes, UserCreationAttributes> implements
     UserAttributes {
     public id!: number;
-    public name!: string;
+    public username!: string;
     public email!: string;
     public password!: string;
+    public startSemester!: string;
+    public enrolledCourseId!: string;
 }
 
 // Inicialize o modelo com os campos no banco
@@ -31,7 +36,7 @@ User.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        name: {
+        username: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -44,6 +49,19 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        startSemester: {
+            type: DataTypes.STRING,
+        },
+        enrolledCourseId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: Course,
+                key: 'id'
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+        }
     },
     {
         sequelize,

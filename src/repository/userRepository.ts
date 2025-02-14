@@ -6,7 +6,7 @@ export class UserRepository {
     async createUser(name: string, email: string, password: string) {
         // Use o método `create` para salvar no banco de dados
         return await User.create({
-            name,
+            username: name,
             email,
             password
         });
