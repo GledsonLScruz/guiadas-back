@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "a project for web development principles class of 2024.2 in UFCG university, about a system for students to evaluate teachers class performance",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "dev": "ts-node src/index.ts"
+    "dev": "tsx watch src/index.ts"
   },
   "author": "",
   "license": "MIT",
@@ -21,6 +20,7 @@
     "@types/node": "^22.13.1",
     "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }
 }
