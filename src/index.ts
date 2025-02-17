@@ -8,6 +8,7 @@ import { Class } from './models/class';
 import { Evaluation } from "./models/evaluation";
 import Professor from "./models/professor";
 import userController from './controllers/userController';
+import swaggerDocs from "./utils/swagger";
 
 dotenv.config();
 const app = express();
@@ -21,14 +22,18 @@ app.use('/api/Users', userController);
 sequelize.sync({ force: true }).then(() => {
     console.log("Banco de dados conectado!");
     app.listen(3000, () => console.log("Servidor rodando na porta 3000"));
+
+    swaggerDocs(app, 3000);
+
     seedDb();
 }).catch((error) => {
     console.error("Erro ao conectar ao banco de dados:", error);
 });
 
 async function seedDb() {
-    let course = await Course.create({ name: "Ciência da Computação" });
-    let newClass = await Class.create({ name: "Principios desenvolvimento Web", semester: "2024.2", courseId: course.id });
+    console.log("Starting Seed");
+    let course = await Course.create({ name: "teste" });
+    let newClass = await Class.create({ name: "Principios desenvolvimento Web", semester: "2024.2", courseId: course.dataValues.id });
     let newProfessor = await Professor.create({ name: "Dalton" });
 }
 

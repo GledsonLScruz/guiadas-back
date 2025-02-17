@@ -4,6 +4,17 @@ import { UserRepository } from "../repository/userRepository";
 
 const router = express.Router();
 
+/**
+   * @openapi
+   * /User:
+   *  post:
+   *     tags:
+   *     - User
+   *     description: Responds if the app is up and running
+   *     responses:
+   *       200:
+   *         description: App is up and running
+   */
 router.post('/', async (req, res) => {
     try {
         const { username, email, password, startSemester, enrolledCourseId } = req.body;
@@ -13,7 +24,7 @@ router.post('/', async (req, res) => {
         }
 
         let userRepository = new UserRepository();
-        const user = await  userRepository.createUser(username, email, password,startSemester,enrolledCourseId);
+        const user = await userRepository.createUser(username, email, password, startSemester, enrolledCourseId);
         res.json(user); // Retorna o usuário criado
     } catch (error: any) {
         res.status(500).json({ message: "Erro ao criar o usuário", error: error.message });
