@@ -6,7 +6,7 @@ import { Professor } from './professor';
 import { Class } from './class';
 import { timeStamp } from 'console';
 
-interface EvaluationAttributes {
+export interface EvaluationAttributes {
     id: number;
     userId: Number;
     professorId: Number;
