@@ -10,7 +10,3 @@ export const getUsers = async () => {
 export const createUser = () => {
     
 }
-
-
-
-

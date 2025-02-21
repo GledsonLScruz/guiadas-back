@@ -52,5 +52,3 @@ Criteria.init(
     timestamps: false,
 }
 );
-
-
