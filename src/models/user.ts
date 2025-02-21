@@ -10,7 +10,7 @@ interface UserAttributes {
     email: string;
     password: string;
     startSemester: string;
-    enrolledCourseId: string;
+    enrolledCourseId: number;
 }
 
 // Cria a interface para os atributos necessários na criação,
@@ -24,7 +24,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     public email!: string;
     public password!: string;
     public startSemester!: string;
-    public enrolledCourseId!: string;
+    public enrolledCourseId!: number;
 }
 
 // Inicialize o modelo com os campos no banco

@@ -9,13 +9,16 @@ import { Evaluation } from "./models/evaluation";
 import Professor from "./models/professor";
 import userController from './controllers/userController';
 import swaggerDocs from "./utils/swagger";
+import evaluationController from "./controllers/evaluationController";
+import { User } from "./models/user";
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 
 
-app.use('/api/Users', userController);
+app.use('/api/users', userController);
+app.use('/api/evaluations', evaluationController);
 
 
 // Testando a conexão e inicializando o servidor
@@ -32,9 +35,20 @@ sequelize.sync({ force: true }).then(() => {
 
 async function seedDb() {
     console.log("Starting Seed");
-    let course = await Course.create({ name: "teste" });
+    let course = await Course.create({ name: "Ciência da Computação" });
+    console.log(course);
+    let user = await User.create({
+        username: "Gledson",
+        email: "gledson@gmail.com",
+        password: "12345",
+        startSemester: "2024.2",
+        enrolledCourseId: course.dataValues.id
+    });
+    console.log(user);
     let newClass = await Class.create({ name: "Principios desenvolvimento Web", semester: "2024.2", courseId: course.dataValues.id });
-    let newProfessor = await Professor.create({ name: "Dalton" });
+    console.log(newClass);
+    let newProfessor = await Professor.create({ name: "Glauber" });
+    console.log(newProfessor);
 }
 
 const userRepo = new UserRepository();
