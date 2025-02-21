@@ -20,7 +20,6 @@ export const createUser = async (
    
       const user = await userRepo.createUser(name, email, password, startSemester, enrolledCourseId);
       return user;
-    
 };
 
 export const updateUser = async (
@@ -43,3 +42,4 @@ export const deleteUser = async (id: number) => {
       return result;
     
 };
+
