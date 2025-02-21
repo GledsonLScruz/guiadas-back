@@ -1,11 +1,11 @@
 
 import express from "express";
 import {
-  createEvaluation,
-  getEvaluationById,
-  getAllEvaluations,
-  updateEvaluation,
-  deleteEvaluation,
+    createEvaluation,
+    getEvaluationById,
+    getAllEvaluations,
+    updateEvaluation,
+    deleteEvaluation,
 } from "../services/evaluationService";
 
 const router = express.Router();
@@ -46,16 +46,16 @@ const router = express.Router();
  *         description: Erro ao criar avaliação
  */
 router.post("/", async (req, res) => {
-  try {
-    const { userId, professorId, classId, semester } = req.body;
-    if (!userId || !professorId || !classId || !semester) {
-        res.status(400).json({ message: "Todos os campos são obrigatórios" });
+    try {
+        const { userId, professorId, classId, semester } = req.body;
+        if (!userId || !professorId || !classId || !semester) {
+            res.status(400).json({ message: "Todos os campos são obrigatórios" });
+        }
+        const evaluation = await createEvaluation({ userId, professorId, classId, semester });
+        res.json(evaluation);
+    } catch (error: any) {
+        res.status(500).json({ message: "Erro ao criar avaliação", error: error.message });
     }
-    const evaluation = await createEvaluation({ userId, professorId, classId, semester });
-    res.json(evaluation);
-  } catch (error: any) {
-    res.status(500).json({ message: "Erro ao criar avaliação", error: error.message });
-  }
 });
 
 /**
@@ -72,12 +72,12 @@ router.post("/", async (req, res) => {
  *         description: Erro ao obter avaliações
  */
 router.get("/", async (req, res) => {
-  try {
-    const evaluations = await getAllEvaluations();
-    res.json(evaluations);
-  } catch (error: any) {
-    res.status(500).json({ message: "Erro ao obter avaliações", error: error.message });
-  }
+    try {
+        const evaluations = await getAllEvaluations();
+        res.json(evaluations);
+    } catch (error: any) {
+        res.status(500).json({ message: "Erro ao obter avaliações", error: error.message });
+    }
 });
 
 /**
@@ -103,16 +103,16 @@ router.get("/", async (req, res) => {
  *         description: Erro ao obter avaliação
  */
 router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const evaluation = await getEvaluationById(Number(id));
-    if (!evaluation) {
-     res.status(404).json({ message: "Avaliação não encontrada" });
+    try {
+        const { id } = req.params;
+        const evaluation = await getEvaluationById(Number(id));
+        if (!evaluation) {
+            res.status(404).json({ message: "Avaliação não encontrada" });
+        }
+        res.json(evaluation);
+    } catch (error: any) {
+        res.status(500).json({ message: "Erro ao obter avaliação", error: error.message });
     }
-    res.json(evaluation);
-  } catch (error: any) {
-    res.status(500).json({ message: "Erro ao obter avaliação", error: error.message });
-  }
 });
 
 /**
@@ -155,20 +155,20 @@ router.get("/:id", async (req, res) => {
  *         description: Erro ao atualizar avaliação
  */
 router.put("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { userId, professorId, classId, semester } = req.body;
-    if (!userId || !professorId || !classId || !semester) {
-       res.status(400).json({ message: "Todos os campos são obrigatórios" });
+    try {
+        const { id } = req.params;
+        const { userId, professorId, classId, semester } = req.body;
+        if (!userId || !professorId || !classId || !semester) {
+            res.status(400).json({ message: "Todos os campos são obrigatórios" });
+        }
+        const updatedEvaluation = await updateEvaluation(Number(id), { userId, professorId, classId, semester });
+        if (!updatedEvaluation) {
+            res.status(404).json({ message: "Avaliação não encontrada" });
+        }
+        res.json(updatedEvaluation);
+    } catch (error: any) {
+        res.status(500).json({ message: "Erro ao atualizar avaliação", error: error.message });
     }
-    const updatedEvaluation = await updateEvaluation(Number(id), { userId, professorId, classId, semester });
-    if (!updatedEvaluation) {
-       res.status(404).json({ message: "Avaliação não encontrada" });
-    }
-    res.json(updatedEvaluation);
-  } catch (error: any) {
-    res.status(500).json({ message: "Erro ao atualizar avaliação", error: error.message });
-  }
 });
 
 /**
@@ -194,16 +194,16 @@ router.put("/:id", async (req, res) => {
  *         description: Erro ao deletar avaliação
  */
 router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await deleteEvaluation(Number(id));
-    if (!result) {
-       res.status(404).json({ message: "Avaliação não encontrada" });
+    try {
+        const { id } = req.params;
+        const result = await deleteEvaluation(Number(id));
+        if (!result) {
+            res.status(404).json({ message: "Avaliação não encontrada" });
+        }
+        res.json({ message: "Avaliação deletada com sucesso." });
+    } catch (error: any) {
+        res.status(500).json({ message: "Erro ao deletar avaliação", error: error.message });
     }
-    res.json({ message: "Avaliação deletada com sucesso." });
-  } catch (error: any) {
-    res.status(500).json({ message: "Erro ao deletar avaliação", error: error.message });
-  }
 });
 
 export default router;
