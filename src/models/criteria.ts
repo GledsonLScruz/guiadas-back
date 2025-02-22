@@ -13,11 +13,11 @@ export interface CriteriaAttributes {
 export interface CriteariaCreationAttributes extends Optional<CriteriaAttributes, 'id'> { }
 
 export class Criteria extends Model<CriteriaAttributes, CriteariaCreationAttributes> implements CriteriaAttributes {
-    public id!: Number;
-    public grade!: Number;
-    public comment!: String;
-    public name!: String;
-    public evaluationId!: Number;
+    public id!: Number; // Unique identifying number
+    public grade!: Number; // Value varying from 0 to 5
+    public comment!: String; // Further explanation on the chosen grade. Optional, limit of 500 characters
+    public name!: String; // Evaluated criterion, chosen from the criteriaTypes enumeration (model)
+    public evaluationId!: Number; // identifies the Evaluation it is associated to
 }
 
 Criteria.init(

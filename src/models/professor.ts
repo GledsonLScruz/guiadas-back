@@ -11,8 +11,8 @@ interface ProfessorAttributes {
 export interface ProfessorCreationAttributes extends Optional<ProfessorAttributes, 'id'> { }
 
 export class Professor extends Model<ProfessorAttributes, ProfessorCreationAttributes> implements ProfessorAttributes {
-    public id!: number;
-    public name!: string;
+    public id!: number; // Unique identifying number
+    public name!: string; // Given name of a Professor
 }
 
 // Initialize the model with database fields

@@ -3,10 +3,10 @@ import sequelize from '../config/database';
 import Course from './course';
 
 interface ClassAttributes {
-    id: number;
-    name: string;
-    semester: string;
-    courseId: number;
+    id: number; // Unique identifying number
+    name: string;  // Class name
+    semester: string; // Year and semester in which the class was taught
+    courseId: number; // Identifies the Class's primary course
 }
 
 export interface ClassCreationAttributes extends Optional<ClassAttributes, 'id'> { }

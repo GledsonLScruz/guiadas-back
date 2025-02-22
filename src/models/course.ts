@@ -3,8 +3,8 @@ import sequelize from '../config/database';
 
 // Define the attributes for the Course model
 interface CourseAttributes {
-    id: number;
-    name: string;
+    id: number; // Unique identifying number
+    name: string; // Course denomination
 }
 
 // Create an interface for creation attributes, making 'id' optional

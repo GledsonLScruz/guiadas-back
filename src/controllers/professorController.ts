@@ -15,6 +15,8 @@ const router = express.Router();
    *       200:
    *         description: App is up and running
    */
+
+// Creates a new instance of a Professor, and returns it to its creator
 router.post('/', async (req, res) => {
     try {
         const { name } = req.body;
@@ -32,6 +34,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// Returns all instances of Professor entities registered in the system
 router.get('/', async (req, res) => {
     try {
         let professorRepository = new ProfessorRepository();

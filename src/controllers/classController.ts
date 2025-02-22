@@ -15,6 +15,8 @@ const router = express.Router();
    *       200:
    *         description: App is up and running
    */
+
+// Creates a new instance of a Class entity, and returns it to its creator
 router.post('/', async (req, res) => {
     try {
         const { name, semester, courseId } = req.body;
@@ -32,6 +34,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// Returns all Class entities registered in the database
 router.get('/', async (req, res) => {
     try {
         let classRepository = new ClassRepository();

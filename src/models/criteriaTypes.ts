@@ -1,5 +1,7 @@
+// Lists the types of criterion used by the Criteria class
+
 enum criteriaTypes {
     DIDACTIC = "Método de Ensino",
-    METHODS = "Método de Avaliação",
+    EVALUATION = "Método de Avaliação",
     BIBLIOGRAPHY = "Bibliografia Recomendada"
 }
