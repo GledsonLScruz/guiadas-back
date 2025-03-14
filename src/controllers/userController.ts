@@ -27,6 +27,28 @@ router.post("/", async (req, res) => {
          res.status(400).json({ message: "Todos os campos são obrigatórios" });
       }
 
+      if (username.trim().length == 0 || username === null) {
+        res.status(400).json({message: "Nome de usuário não pode ser vazio ou em branco"});
+      }
+
+      const emailPattern = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@[*[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+]*/;
+      
+      if (!emailPattern.test(email) && !email.includes("ufcg.edu.br")) {
+        res.status(400).json({message: "Email fornecido não é válido ou não é email institucional da UFCG"});
+      }
+
+      if (password.trim().length == 0 || password.trim().length < 6 || password === null){
+        res.status(400).json({message: "Senha inválida"});
+      }
+
+      if (startSemester.trim().length == 0 || startSemester.trim().length < 6 || startSemester === null){
+        res.status(400).json({message: "Semestre de admissão inválido"});
+      }
+
+      if (enrolledCourseId < 100 || enrolledCourseId >= 800){
+        res.status(400).json({message: "Identificador de curso inválido"});
+      }
+
       const user = await createUser(username, email, password, startSemester, enrolledCourseId);
       res.json(user); // Retorna o usuário criado
     } catch (error: any) {

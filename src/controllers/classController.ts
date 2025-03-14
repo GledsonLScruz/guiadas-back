@@ -25,6 +25,18 @@ router.post('/', async (req, res) => {
             res.status(400).json({ message: "Todos os campos são obrigatórios" });
         }
 
+        if (name.trim().length == 0 || name === null){
+            res.status(400).json({ message: "Nome de Turma inválido" });
+        }
+
+        if (semester.trim().length != 6 || semester === null){
+            res.status(400).json({ message: "Identificador de Turma inválido" });
+        }
+
+        if (courseId.toString().trim().length != 7 || courseId === null){
+            res.status(400).json({ message: "Identificador de Curso inválido" });
+        }
+
         let classRepository = new ClassRepository();
         const pclass = await classRepository.createClass(name, semester, courseId);
         res.json(pclass); // Retorna o usuário criado

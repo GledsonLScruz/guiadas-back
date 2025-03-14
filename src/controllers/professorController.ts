@@ -25,6 +25,10 @@ router.post('/', async (req, res) => {
             res.status(400).json({ message: "Todos os campos são obrigatórios" });
         }
 
+        if (name.trim().length == 0 || name === null){
+            res.status(400).json({ message: "Nome inválido" });
+        }
+
         let professorRepository = new ProfessorRepository();
         const professor = await professorRepository.createProfessor(name);
         res.json(professor); // Retorna o usuário criado
