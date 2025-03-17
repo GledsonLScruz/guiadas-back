@@ -1,11 +1,8 @@
-import { afterEach, beforeEach, describe } from "node:test";
-import { Course } from "../models/course";
-
-const { chai } = require('chai');
-const expect = chai.expect;
-const it = chai.expect;
-
-const { mocha } = require('mocha');
+import { afterEach, beforeEach, describe } from "mocha";
+import { expect } from "chai";
+import { Criteria } from "../models/criteria";
+import { CriteriaRepository } from "../repository/criteriaRepository";
+import { getAllCriteria, createCriteria, deleteCriteria } from "../services/criteriaService";
 
 describe ('Testes de repositório', function() {
 

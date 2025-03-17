@@ -1,11 +1,8 @@
-import { afterEach, beforeEach, describe } from "node:test";
-import { Class } from "../models/class";
-
-const { chai } = require('chai');
-const expect = chai.expect;
-const it = chai.expect;
-
-const { mocha } = require('mocha');
+import { afterEach, beforeEach, describe } from "mocha";
+import { expect } from "chai";
+import { UserAdmin } from "../models/userAdmin";
+import { UserAdminRepository } from "../repository/userAdminRepository";
+import { getUserAdmins, createUserAdmin, deleteUserAdmin } from "../services/userAdminService";
 
 describe ('Testes de repositório', function() {
 

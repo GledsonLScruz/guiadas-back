@@ -1,7 +1,7 @@
 
 import { Evaluation, EvaluationCreationAttributes, EvaluationAttributes } from '../models/evaluation'
 
-class EvaluationRepository {
+export class EvaluationRepository {
   async createEvaluation(evaluationData: EvaluationCreationAttributes) {
     return await Evaluation.create(evaluationData)
   }

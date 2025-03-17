@@ -1,6 +1,5 @@
 import * as express from "express";
-import { createClass, getClasses } from '../services/classService';
-import { ClassRepository } from "../repository/classRepository";
+import { createClass, deleteClass, getClasses } from '../services/classService';
 
 const router = express.Router();
 
@@ -25,21 +24,8 @@ router.post('/', async (req, res) => {
             res.status(400).json({ message: "Todos os campos são obrigatórios" });
         }
 
-        if (name.trim().length == 0 || name === null){
-            res.status(400).json({ message: "Nome de Turma inválido" });
-        }
-
-        if (semester.trim().length != 6 || semester === null){
-            res.status(400).json({ message: "Identificador de Turma inválido" });
-        }
-
-        if (courseId.toString().trim().length != 7 || courseId === null){
-            res.status(400).json({ message: "Identificador de Curso inválido" });
-        }
-
-        let classRepository = new ClassRepository();
-        const pclass = await classRepository.createClass(name, semester, courseId);
-        res.json(pclass); // Retorna o usuário criado
+        const pclass = await createClass(name, semester, courseId);
+        res.json(pclass); // Returns the created Class entity
 
     } catch (error: any) {
         res.status(500).json({ message: "Erro ao criar a classe", error: error.message });
@@ -49,11 +35,21 @@ router.post('/', async (req, res) => {
 // Returns all Class entities registered in the database
 router.get('/', async (req, res) => {
     try {
-        let classRepository = new ClassRepository();
-        const classes = await classRepository.getAllClasses();
-        res.json(classes); // Retorna todos os usuários
+        const classes = await getClasses();
+        res.json(classes); // Returns all class entities
     } catch (error: any) {
         res.status(500).json({ message: "Erro ao obter as classes", error: error.message });
+    }
+});
+
+// Deletes a Class entity by its id
+router.delete("/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await deleteClass(Number(id));
+      res.json({ message: "Classe deletada com sucesso." });
+    } catch (error: any) {
+      res.status(500).json({ message: "Erro ao deletar a classe", error: error.message });
     }
 });
 

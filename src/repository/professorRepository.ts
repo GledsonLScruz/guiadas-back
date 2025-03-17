@@ -20,4 +20,9 @@ export class ProfessorRepository {
         return await Professor.findAll({where: {name: professorName}});
     }
 
+    // Deletes a Professor by its id
+    async deleteProfessor(professorId: number){
+        return await Professor.destroy({where: {id:professorId}});
+    }
+
 }

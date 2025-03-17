@@ -9,7 +9,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "chai": "^5.2.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "guiadas": "file:",
@@ -19,11 +18,14 @@
     "sequelize": "^6.37.6"
   },
   "devDependencies": {
+    "@types/chai": "^5.2.0",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.0",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^22.13.10",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.7",
+    "chai": "^5.2.0",
     "mocha": "^11.1.0",
     "sequelize-cli": "^6.6.2",
     "swagger-jsdoc": "^6.2.8",
@@ -40,6 +42,11 @@
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/GledsonLScruz/principios-de-desenvolvimento-web/issues"
+  },
+  "mocha": {
+    "require": "ts-node/register",
+    "recursive": true,
+    "timeout": 5000
   },
   "homepage": "https://github.com/GledsonLScruz/principios-de-desenvolvimento-web#readme"
 }
