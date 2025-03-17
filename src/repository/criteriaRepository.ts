@@ -36,4 +36,9 @@ export class CriteriaRepository {
   async deleteCriteria(id: number) {
     return await Criteria.destroy({ where: { id } });
   }
+
+  async getCriteriaById(id: number) {
+    return await Criteria.findByPk(id);
+  }
+
 }
