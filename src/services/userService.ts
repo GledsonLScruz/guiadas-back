@@ -17,9 +17,18 @@ export const createUser = async (
     startSemester: string, 
     enrolledCourseId: string
 ) => {
-   
-      const user = await userRepo.createUser(name, email, password, startSemester, enrolledCourseId);
-      return user;
+      
+      const emailPattern = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@[*[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+]*/;
+
+      if (name.trim().length == 0 || name === null || // Tests for invalid Username
+          !emailPattern.test(email) || !email.includes("ufcg.edu.br") || // Tests for invalid email
+          password.trim().length == 0 || password.trim().length < 6 || password === null || // Minimal security password
+          startSemester.trim().length == 0 || startSemester.trim().length < 6 || startSemester === null){ // Tests for invalid semester
+            throw new Error("")
+          } else {
+            const user = await userRepo.createUser(name, email, password, startSemester, Number(enrolledCourseId));
+            return user;
+          }
 };
 
 export const updateUser = async (
@@ -31,7 +40,7 @@ export const updateUser = async (
     enrolledCourseId: string
 ) => {
     
-      const updatedUser = await userRepo.updateUser(id, name, email, password, startSemester, enrolledCourseId);
+      const updatedUser = await userRepo.updateUser(id, name, email, password, startSemester, Number(enrolledCourseId));
       return updatedUser;
    
 };

@@ -3,7 +3,7 @@ import { User } from "../models/user";
 
 export class UserRepository {
     async createUser(name: string, email: string, password: string, startSemester: string,
-        enrolledCourseId: string,) {
+        enrolledCourseId: number,) {
         return await User.create({
             username: name,
             email,
@@ -18,13 +18,13 @@ export class UserRepository {
     }
 
     async updateUser(id: number, name: string, email: string, password: string, startSemester: string,
-        enrolledCourseId: string,) {
+        enrolledCourseId: number,) {
         return await User.update({
             username: name,
             email,
             password,
             startSemester,
-            enrolledCourseId
+            enrolledCourseId 
         }, {
             where: {
                 id: id

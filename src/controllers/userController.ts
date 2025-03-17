@@ -104,7 +104,7 @@ router.put("/:id", async (req, res) => {
       res.status(500).json({ message: "Erro ao atualizar o usuário", error: error.message });
     }
 });
-
+ 
 /**
    * @openapi
    * /User/{id}:
