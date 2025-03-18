@@ -24,7 +24,7 @@ export class UserRepository {
             email,
             password,
             startSemester,
-            enrolledCourseId 
+            enrolledCourseId
         }, {
             where: {
                 id: id
@@ -34,5 +34,9 @@ export class UserRepository {
 
     async deleteUser(id: number) {
         return await User.destroy({ where: { id: id } });
+    }
+
+    async findUserByUsername(username: string) {
+        return await User.findOne({ where: { username: username } });
     }
 }
