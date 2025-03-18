@@ -25,15 +25,31 @@ export const createUser = async (
 
       const emailPattern = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@[*[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+]*/;
 
-      if (name.trim().length == 0 || name === null || // Tests for invalid Username
-            !emailPattern.test(email) || !email.includes("ufcg.edu.br") || // Tests for invalid email
-            password.trim().length == 0 || password.trim().length < 6 || password === null || // Minimal security password
-            startSemester.trim().length == 0 || startSemester.trim().length < 6 || startSemester === null) { // Tests for invalid semester
-            throw new Error("")
-      } else {
-            const user = await userRepo.createUser(name, email, password, startSemester, Number(enrolledCourseId));
-            return user;
+      if (name.trim().length == 0 || name === null){
+            throw new Error("Invalid name");
       }
+      
+      if (!emailPattern.test(email) || !email.includes("ufcg.edu.br")){
+            throw new Error("Invalid email")
+      }
+      
+      if (password.trim().length == 0 || password.trim().length < 6 || password === null){
+            throw new Error("Invalid password")
+      }
+          
+      if (startSemester.trim().length == 0 || startSemester.trim().length != 6 || startSemester === null){
+            throw new Error("Invalid semester")
+      }
+
+      if (enrolledCourseId.trim().length == 0 || enrolledCourseId.trim().length != 7 || enrolledCourseId === null){
+            throw new Error("Invalid course id");
+      }
+
+      const user = await userRepo.createUser(name, email, password, startSemester, Number(enrolledCourseId));
+      return user;
+
+      }
+
 };
 
 export const updateUser = async (
@@ -56,4 +72,10 @@ export const deleteUser = async (id: number) => {
       return result;
 
 };
+
+export const deleteAllUsers = async () => {
+
+      userRepo.deleteAllUsers();
+
+}
 

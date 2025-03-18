@@ -36,6 +36,10 @@ export class UserRepository {
         return await User.destroy({ where: { id: id } });
     }
 
+    async deleteAllUsers(){
+        User.truncate();
+    }
+  
     async findUserByUsername(username: string) {
         return await User.findOne({ where: { username: username } });
     }

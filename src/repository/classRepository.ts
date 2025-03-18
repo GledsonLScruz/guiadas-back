@@ -22,9 +22,16 @@ export class ClassRepository {
         return await Class.findAll({where: {courseId: reqCourseId}});
     }
 
-    // Deletes a Class by its id or name
+    // Deletes a Class by its course id
     async deleteClass(classId: number){
         return await Class.destroy({where: {id:classId}});
+    }
+
+    // Deletes all CLass entity entries
+    async deleteAllClasses(){
+
+        Class.truncate();
+        
     }
 
 }
