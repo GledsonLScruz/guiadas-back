@@ -31,4 +31,3 @@ export class EvaluationRepository {
   }
 }
 
-export default new EvaluationRepository()

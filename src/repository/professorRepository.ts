@@ -4,7 +4,7 @@ export class ProfessorRepository {
 
     // Creates a new Professor
     async createProfessor(name: string,) {
-        
+
         return await Professor.create({
             name: name
         });
@@ -17,12 +17,15 @@ export class ProfessorRepository {
 
     // Returns all registered Professors with names matching the given string
     async filteredProfessors(professorName: string) {
-        return await Professor.findAll({where: {name: professorName}});
+        return await Professor.findAll({ where: { name: professorName } });
     }
 
-    // Deletes a Professor by its id
-    async deleteProfessor(professorId: number){
-        return await Professor.destroy({where: {id:professorId}});
-    }
 
+    // Deletes a Professor by ID
+    async deleteProfessor(id: number) {
+        const result = await Professor.destroy({
+            where: { id: id }
+        });
+        return result > 0; // Returns true if a Professor was deleted
+    }
 }

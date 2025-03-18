@@ -1,7 +1,9 @@
 import * as express from "express";
-import { createProfessor, getProfessors, deleteProfessor } from "../services/professorService";
+import { ProfessorRepository } from "../repository/professorRepository";
 
 const router = express.Router();
+
+let professorRepository = new ProfessorRepository();
 
 /**
    * @openapi
@@ -24,8 +26,13 @@ router.post('/', async (req, res) => {
             res.status(400).json({ message: "Todos os campos são obrigatórios" });
         }
 
-        const professor = await createProfessor(name);
-        res.json(professor); // Returns the created professor
+        if (name.trim().length == 0 || name === null) {
+            res.status(400).json({ message: "Nome inválido" });
+        }
+
+        let professorRepository = new ProfessorRepository();
+        const professor = await professorRepository.createProfessor(name);
+        res.json(professor); // Retorna o usuário criado
 
     } catch (error: any) {
         res.status(500).json({ message: "Erro ao criar o professor", error: error.message });
@@ -35,7 +42,7 @@ router.post('/', async (req, res) => {
 // Returns all instances of Professor entities registered in the system
 router.get('/', async (req, res) => {
     try {
-        const professors = await getProfessors();
+        const professors = await professorRepository.getAllProfessors();
         res.json(professors); // Returns all professors
     } catch (error: any) {
         res.status(500).json({ message: "Erro ao obter os professores", error: error.message });
@@ -45,7 +52,7 @@ router.get('/', async (req, res) => {
 // Deletes a Professor by id
 router.delete('/:id', async (req, res) => {
     try {
-        await deleteProfessor(req.body);
+        await professorRepository.deleteProfessor(req.body);
     } catch (error: any) {
         res.status(500).json({ message: "Erro ao apagar o professor", error: error.message });
     }

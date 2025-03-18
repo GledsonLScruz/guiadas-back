@@ -4,20 +4,25 @@ import { UserRepository } from "../repository/userRepository";
 const userRepo = new UserRepository();
 
 export const getUsers = async () => {
-   
+
       const users = await userRepo.getAllUsers();
       return users;
-    
+
+};
+
+export const findUserByUsername = async (username: string) => {
+      const user = await userRepo.findUserByUsername(username);
+      return user;
 };
 
 export const createUser = async (
-    name: string, 
-    email: string, 
-    password: string, 
-    startSemester: string, 
-    enrolledCourseId: string
+      name: string,
+      email: string,
+      password: string,
+      startSemester: string,
+      enrolledCourseId: string
 ) => {
-      
+
       const emailPattern = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@[*[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+]*/;
 
       if (name.trim().length == 0 || name === null){
@@ -42,27 +47,30 @@ export const createUser = async (
 
       const user = await userRepo.createUser(name, email, password, startSemester, Number(enrolledCourseId));
       return user;
+
+      }
+
 };
 
 export const updateUser = async (
-    id: number,
-    name: string, 
-    email: string, 
-    password: string, 
-    startSemester: string, 
-    enrolledCourseId: string
+      id: number,
+      name: string,
+      email: string,
+      password: string,
+      startSemester: string,
+      enrolledCourseId: string
 ) => {
-    
+
       const updatedUser = await userRepo.updateUser(id, name, email, password, startSemester, Number(enrolledCourseId));
       return updatedUser;
-   
+
 };
 
 export const deleteUser = async (id: number) => {
-    
+
       const result = await userRepo.deleteUser(id);
       return result;
-    
+
 };
 
 export const deleteAllUsers = async () => {

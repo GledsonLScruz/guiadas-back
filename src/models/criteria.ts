@@ -3,7 +3,7 @@ import sequelize from '../config/database';
 import { Evaluation } from './evaluation';
 
 export interface CriteriaAttributes {
-    id: Number;
+    id: number;
     grade: Number;
     comment: String;
     name: String;
@@ -13,7 +13,7 @@ export interface CriteriaAttributes {
 export interface CriteariaCreationAttributes extends Optional<CriteriaAttributes, 'id'> { }
 
 export class Criteria extends Model<CriteriaAttributes, CriteariaCreationAttributes> implements CriteriaAttributes {
-    public id!: Number; // Unique identifying number
+    public id!: number; // Unique identifying number
     public grade!: Number; // Value varying from 0 to 5
     public comment!: String; // Further explanation on the chosen grade. Optional, limit of 500 characters
     public name!: String; // Evaluated criterion, chosen from the criteriaTypes enumeration (model)

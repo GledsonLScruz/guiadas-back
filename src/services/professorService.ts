@@ -1,37 +1,39 @@
 import { ProfessorRepository } from "../repository/professorRepository";
 
-const professorRepository = new ProfessorRepository();
+export class ProfessorService {
 
-export const filteredProfessors = async (professorName: string) => {
+    professorRepository: ProfessorRepository;
 
-    if (professorName.trim().length > 0 && professorName != null){
-        return await professorRepository.filteredProfessors(professorName);
+    constructor(professorRepository: ProfessorRepository) {
+        this.professorRepository = professorRepository;
     }
 
-}
+    async filteredProfessors(professorName: string) {
+        if (professorName.trim().length > 0 && professorName != null) {
+            return await this.professorRepository.filteredProfessors(professorName);
+        }
 
-export const getProfessors = async () => {
-
-    return await professorRepository.getAllProfessors();
-
-}
-
-export const createProfessor = async (professorName: string) => {
-
-    if (professorName.trim().length == 0 || professorName === null){
-        throw new Error("Invalid name");
-    } else {
-        const newProfessor = await professorRepository.createProfessor(professorName);
-        return newProfessor;
     }
-}
 
-export const deleteProfessor = async (professorId: Number) => {
+    async getProfessors() {
+        return await this.professorRepository.getAllProfessors();
+    }
 
-    try {
-        professorRepository.deleteProfessor(Number(professorId));
-    } catch (error:any){
-        throw new Error("Invalid id");
+    async createProfessor(professorName: string) {
+        if (professorName.trim().length == 0 || professorName === null) {
+            throw new Error("Invalid name");
+        } else {
+            const newProfessor = await this.professorRepository.createProfessor(professorName);
+            return newProfessor;
+        }
+    }
+
+    async deleteProfessor(professorId: number) {
+        try {
+            this.professorRepository.deleteProfessor(Number(professorId));
+        } catch (error: any) {
+            throw new Error("Invalid id");
+        }
     }
 
 }

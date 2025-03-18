@@ -11,12 +11,13 @@ import userController from './controllers/userController';
 import swaggerDocs from "./utils/swagger";
 import evaluationController from "./controllers/evaluationController";
 import { User } from "./models/user";
+import authController from "./controllers/authController";
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 
-
+app.use('/auth', authController);
 app.use('/api/users', userController);
 app.use('/api/evaluations', evaluationController);
 
