@@ -1,5 +1,5 @@
 import * as express from "express";
-import { createCourse, getCourses,deleteCourse } from "../services/courseService";
+import { createCourse, getCourses,deleteCourse, filteredCourses } from "../services/courseService";
 
 const router = express.Router();
 
@@ -42,12 +42,27 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Deletes a Course based on its id or name
-router.delete('/', async (req, res) => {
+// Returns all instances of COurses filtered by a given string
+router.get('/:courseName', async (req, res) => {
+
     try{
-        await deleteCourse(req.body);
-    } catch (error: any) {({ message: "Erro ao apagar a disciplina", error: error.message });
-        res.status(500).json
+        const {courseName} = req.params;
+        const filtered = await filteredCourses(courseName);
+        res.json(filtered);
+    } catch (error:any){
+        res.status(500).json({message: "Filtro inválido", error: error.message});
+    }
+
+});
+
+// Deletes a Course based on its id or name
+router.delete('/:id', async (req, res) => {
+    try{
+        const {id} = req.params;
+        await deleteCourse(Number(id));
+        res.json({message: "Disciplina apagada com sucesso."});
+    } catch (error: any) {
+        res.status(500).json({ message: "Erro ao apagar a disciplina", error: error.message });
     }
 });
 
