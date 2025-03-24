@@ -50,7 +50,7 @@ export const createUser = async (
 
       }
 
-};
+
 
 export const updateUser = async (
       id: number,

@@ -4,7 +4,8 @@
   "description": "a project for web development principles class of 2024.2 in UFCG university, about a system for students to evaluate teachers class performance",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "test": "mocha"
   },
   "author": "",
   "license": "MIT",

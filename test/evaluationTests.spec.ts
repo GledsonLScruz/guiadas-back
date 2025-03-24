@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe } from "mocha";
 
-import { Evaluation } from "../models/evaluation";
-import { EvaluationRepository } from "../repository/evaluationRepository";
-import { EvaluationService } from "../services/evaluationService";
+import { Evaluation } from "../src/models/evaluation";
+import { EvaluationRepository } from "../src/repository/evaluationRepository";
+import { EvaluationService } from "../src/services/evaluationService";
 
 const { chai } = require('chai');
 const expect = chai.expect;

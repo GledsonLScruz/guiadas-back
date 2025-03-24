@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe } from "mocha";
 import { expect } from "chai";
-import { UserAdmin } from "../models/userAdmin";
-import { UserAdminRepository } from "../repository/userAdminRepository";
-import { getUserAdmins, createUserAdmin, deleteUserAdmin } from "../services/userAdminService";
+import { UserAdmin } from "../src/models/userAdmin";
+import { UserAdminRepository } from "../src/repository/userAdminRepository";
+import { getUserAdmins, createUserAdmin, deleteUserAdmin } from "../src/services/userAdminService";
 
 describe ('Testes de repositório', function() {
 
