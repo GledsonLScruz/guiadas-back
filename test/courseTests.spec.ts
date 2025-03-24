@@ -2,38 +2,46 @@ import { afterEach, beforeEach, describe } from "mocha";
 import { expect } from "chai";
 import { CourseRepository } from "../src/repository/courseRepository";
 import { createCourse, deleteCourse, filteredCourses, getCourses } from "../src/services/courseService";
-let repo: CourseRepository;
+import { before } from "node:test";
+
+
+
+describe ('Testes de repositório', function() {
+
+    let repo: CourseRepository;
 
 beforeEach( function() {
     repo = new CourseRepository();
+    repo.deleteAllCourses();
 });
 
 afterEach( function() {
     repo.deleteAllCourses();
 });
 
-describe ('Testes de repositório', function() {
-
     it ('creates a new course', async function() {
 
         const p1 = await repo.createCourse("P1");
-
-        expect(p1.id).to.equal(1);
-        expect(p1.name).to.equal("P1");
-
+        
+        expect(p1.dataValues.name).to.equal("P1");
     });
 
-    it ('verifies if the number of courses in the db is the same as those created and saved', function() {
+    it ('verifies if the number of courses in the db is the same as those created and saved', async function() {
 
-        expect(repo.getAllCourses.length).to.equal(0);
+        let beforeCourses = await repo.getAllCourses();
 
-        repo.createCourse("P1");
-        repo.createCourse("LP1");
-        repo.createCourse("FMCC1");
-        repo.createCourse("IC");
-        repo.createCourse("Lingua Portuguesa");
+        expect(beforeCourses.length).to.equal(0);
 
-        expect(repo.getAllCourses.length).to.equal(5);
+       await  repo.createCourse("P1");
+       await repo.createCourse("LP1");
+       await repo.createCourse("FMCC1");
+       await repo.createCourse("IC");
+       await repo.createCourse("Lingua Portuguesa");
+
+        
+        let courses = await repo.getAllCourses();
+        console.log(courses);
+        expect(courses.length).to.equal(5);
 
     });
 

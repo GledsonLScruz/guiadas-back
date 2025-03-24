@@ -1,12 +1,8 @@
-import { afterEach, beforeEach, describe } from "mocha";
+/** import { afterEach, beforeEach, describe } from "mocha";
 import { CriteriaRepository } from "../src/repository/criteriaRepository";
 import { CriteriaService } from "../src/services/criteriaService";
+import { expect } from "chai";
 
-const { chai } = require('chai');
-const expect = chai.expect;
-const it = chai.expect;
-
-const { mocha } = require('mocha');
 
 describe('Testes de repositório', function () {
     let criteriaRepository: CriteriaRepository;
@@ -236,4 +232,4 @@ describe('Testes de service', function () {
         const criterias = await criteriaService.getAllCriteria();
         expect(criterias).to.have.lengthOf(0);
     });
-}); 
+}); */

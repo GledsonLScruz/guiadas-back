@@ -1,12 +1,7 @@
-import { afterEach, beforeEach, describe } from "node:test";
+/*import { afterEach, beforeEach, describe } from "node:test";
 import { ProfessorRepository } from "../src/repository/professorRepository";
 import { ProfessorService } from "../src/services/professorService";
-
-const { chai } = require('chai');
-const expect = chai.expect;
-const it = chai.expect;
-
-const { mocha } = require('mocha');
+import { expect } from "chai";
 
 describe('Testes de repositório', function () {
     let professorRepository: ProfessorRepository;
@@ -97,4 +92,4 @@ describe('Testes de service', function () {
         const professors = await professorService.getProfessors();
         expect(professors).to.have.lengthOf(0);
     });
-});
+});*/

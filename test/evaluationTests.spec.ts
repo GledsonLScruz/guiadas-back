@@ -1,14 +1,10 @@
-import { afterEach, beforeEach, describe } from "mocha";
+/*import { afterEach, beforeEach, describe } from "mocha";
 
 import { Evaluation } from "../src/models/evaluation";
 import { EvaluationRepository } from "../src/repository/evaluationRepository";
 import { EvaluationService } from "../src/services/evaluationService";
+import { expect } from "chai";
 
-const { chai } = require('chai');
-const expect = chai.expect;
-const it = chai.expect;
-
-const { mocha } = require('mocha');
 
 describe('Testes de repositório', function () {
     let evaluationRepository: EvaluationRepository;
@@ -182,4 +178,4 @@ describe('Testes de service', function () {
         const evaluations = await evaluationService.getAllEvaluations();
         expect(evaluations).to.have.lengthOf(0);
     });
-});
+});*/

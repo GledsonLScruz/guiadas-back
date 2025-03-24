@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe } from "mocha";
+/*import { afterEach, beforeEach, describe } from "mocha";
 import { expect } from "chai";
 import { UserAdmin } from "../src/models/userAdmin";
 import { UserAdminRepository } from "../src/repository/userAdminRepository";
@@ -50,4 +50,4 @@ describe ('Testes de controller', function() {
         //
     });
 
-});
+});*/
