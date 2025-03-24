@@ -1,8 +1,6 @@
 import { afterEach, beforeEach, describe } from "mocha";
-import { Criteria } from "../models/criteria";
-import { CriteriaRepository } from "../repository/criteriaRepository";
-
-import { CriteriaService } from "../services/criteriaService";
+import { CriteriaRepository } from "../src/repository/criteriaRepository";
+import { CriteriaService } from "../src/services/criteriaService";
 
 const { chai } = require('chai');
 const expect = chai.expect;
@@ -91,7 +89,7 @@ describe('Testes de repositório', function () {
             1
         );
         const criterias = await criteriaRepository.getAllCriteria();
-        const updatedCriteria = criterias.find(c => c.id === criteria.id);
+        const updatedCriteria = criterias.find((c: { id: any; }) => c.id === criteria.id);
         expect(updatedCriteria).to.have.property('grade', 4);
         expect(updatedCriteria).to.have.property('comment', 'Bom professor');
     });

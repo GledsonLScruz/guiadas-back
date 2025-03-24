@@ -1,9 +1,6 @@
 import { afterEach, beforeEach, describe } from "mocha";
 import { expect } from "chai";
-import { Class } from "../models/class";
-import { ClassRepository } from "../repository/classRepository";
-import { getClasses, createClass, deleteClass } from "../services/classService";
-
+import { createClass, deleteClass, getClasses } from "../src/services/classService";
 let repo = new ClassRepository();
 let semester = "2024.2";
 

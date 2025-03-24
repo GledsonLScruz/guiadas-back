@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe } from "node:test";
-import { ProfessorRepository } from "../repository/professorRepository";
-import { ProfessorService } from "../services/professorService";
+import { ProfessorRepository } from "../src/repository/professorRepository";
+import { ProfessorService } from "../src/services/professorService";
 
 const { chai } = require('chai');
 const expect = chai.expect;
@@ -85,8 +85,8 @@ describe('Testes de service', function () {
         await professorService.createProfessor('Outro Professor');
 
         const filteredProfessors = await professorService.filteredProfessors('Professor Filtrado');
-        expect(filteredProfessors).to.have.lengthOf(1);
-        expect(filteredProfessors[0]).to.have.property('name', 'Professor Filtrado');
+        expect(filteredProfessors!).to.have.lengthOf(1);
+        expect(filteredProfessors![0]).to.have.property('name', 'Professor Filtrado');
     });
 
     it('deve deletar um professor através do service', async function () {

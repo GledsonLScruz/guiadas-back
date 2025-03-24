@@ -1,9 +1,7 @@
 import { afterEach, beforeEach, describe } from "mocha";
 import { expect } from "chai";
-import { CourseRepository } from "../repository/courseRepository";
-import { createCourse, deleteCourse, filteredCourses, getCourses } from "../services/courseService";
-import {} from "../controllers/courseController"
-
+import { CourseRepository } from "../src/repository/courseRepository";
+import { createCourse, deleteCourse, filteredCourses, getCourses } from "../src/services/courseService";
 let repo: CourseRepository;
 
 beforeEach( function() {
