@@ -1,12 +1,15 @@
 import { EvaluationCreationAttributes, EvaluationAttributes } from '../models/evaluation'
 import { EvaluationRepository } from '../repository/evaluationRepository'
+import { CriteriaService } from './criteriaService'
 
 export class EvaluationService {
 
   evaluationRepository: EvaluationRepository
+  criteriaService!: CriteriaService
 
   constructor(evaluationRepository: EvaluationRepository) {
     this.evaluationRepository = evaluationRepository
+    this.criteriaService = this.criteriaService
   }
 
   async createEvaluation(evaluationData: EvaluationCreationAttributes) {
@@ -31,6 +34,10 @@ export class EvaluationService {
 
   async deleteEvaluation(id: number) {
     const result = await this.evaluationRepository.deleteEvaluation(id)
+    if (result != null){
+      await this.criteriaService.cascadingCriteriaDeletion(result['id']);
+    }
+    
     return result
   }
 }

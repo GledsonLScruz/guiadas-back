@@ -1,10 +1,10 @@
-/** import { afterEach, beforeEach, describe } from "mocha";
+import { afterEach, beforeEach, describe } from "mocha";
 import { CriteriaRepository } from "../src/repository/criteriaRepository";
 import { CriteriaService } from "../src/services/criteriaService";
 import { expect } from "chai";
 
-
 describe('Testes de repositório', function () {
+
     let criteriaRepository: CriteriaRepository;
 
     beforeEach(function () {
@@ -12,7 +12,7 @@ describe('Testes de repositório', function () {
     });
 
     afterEach(function () {
-        // Cleanup code after each test
+        criteriaRepository.deleteAllCriteria();
     });
 
     it('deve criar um novo critério', async function () {
@@ -110,6 +110,7 @@ describe('Testes de repositório', function () {
 });
 
 describe('Testes de service', function () {
+
     let criteriaService: CriteriaService;
     let criteriaRepository: CriteriaRepository;
 
@@ -119,7 +120,7 @@ describe('Testes de service', function () {
     });
 
     afterEach(function () {
-        // Cleanup after each test
+        criteriaRepository.deleteAllCriteria();
     });
 
     it('deve criar um novo critério', async function () {
@@ -232,4 +233,4 @@ describe('Testes de service', function () {
         const criterias = await criteriaService.getAllCriteria();
         expect(criterias).to.have.lengthOf(0);
     });
-}); */
+});

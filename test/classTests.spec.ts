@@ -1,10 +1,8 @@
-/**
 import { afterEach, beforeEach, describe } from "mocha";
 import { expect } from "chai";
 import { createClass, deleteClass, getClasses } from "../src/services/classService";
 import { ClassRepository } from "../src/repository/classRepository";
 
-let repo = new ClassRepository();
 let semester = "2024.2";
 
 function courseIdCreator(){
@@ -13,24 +11,25 @@ function courseIdCreator(){
     return Math.floor(Math.random() * (max-min+1)+min);
 }
 
-beforeEach( function() {
-    repo = new ClassRepository();
-});
-
-afterEach( function() {
-    repo.deleteAllClasses();
-});
-
 describe ('Testes de repositório', function() {
+
+    let repo: ClassRepository;
+
+    beforeEach( function() {
+        repo = new ClassRepository();
+    });
+    
+    afterEach( function() {
+        repo.deleteAllClasses();
+    });
 
     it ('creates a new class entity', async function() {
 
         const pdw = await repo.createClass("PDW",semester,1411335);
 
-        expect(pdw.id).to.equals(1);
-        expect(pdw.name).to.equals("PDW");
-        expect(pdw.semester).to.equals(semester);
-        expect(pdw.courseId).to.equals(1411335);
+        expect(pdw.dataValues.name).to.equals("PDW");
+        expect(pdw.dataValues.semester).to.equals(semester);
+        expect(pdw.dataValues.courseId).to.equals(1411335);
 
     });
 
@@ -60,20 +59,21 @@ describe ('Testes de repositório', function() {
         const f3 = (await repo.filteredClasses(fmcc1.courseId))[0];
         const f4 = (await repo.filteredClasses(fmcc2.courseId))[0];
 
-        expect(eda.name).to.equal(f1.name);
-        expect(eda.semester).to.equal(f1.semester);
+        expect(eda.dataValues.name).to.equal(f1.dataValues.name);
+        expect(eda.dataValues.semester).to.equal(f1.dataValues.semester);
 
-        expect(leda.name).to.equal(f2.name);
-        expect(leda.semester).to.equal(f2.semester);
+        expect(leda.dataValues.name).to.equal(f2.dataValues.name);
+        expect(leda.dataValues.semester).to.equal(f2.dataValues.semester);
 
-        expect(fmcc1.name).to.equal(f3.name);
-        expect(fmcc1.semester).to.equal(f3.semester);
+        expect(fmcc1.dataValues.name).to.equal(f3.dataValues.name);
+        expect(fmcc1.dataValues.semester).to.equal(f3.dataValues.semester);
 
-        expect(fmcc2.name).to.equal(f4.name);
-        expect(fmcc2.semester).to.equal(f4.semester);
+        expect(fmcc2.dataValues.name).to.equal(f4.dataValues.name);
+        expect(fmcc2.dataValues.semester).to.equal(f4.dataValues.semester);
 
 
     });
+
     it ('deletes a valid class', async function() {
 
         const p1 = await repo.createClass("P1",semester,courseIdCreator());
@@ -88,7 +88,7 @@ describe ('Testes de repositório', function() {
 
         const p1 = await repo.createClass("P1",semester,courseIdCreator());
 
-        expect(repo.deleteClass(p1.id)).to.equal(0);
+        repo.deleteClass(p1.id+1);
 
         const classes = await repo.getAllClasses();
         expect(classes.length).to.equal(1);
@@ -99,13 +99,23 @@ describe ('Testes de repositório', function() {
 
 describe ('Testes de service', function() {
 
+    let repo: ClassRepository;
+
+    beforeEach( function() {
+        repo = new ClassRepository();
+    });
+    
+    afterEach( function() {
+        repo.deleteAllClasses();
+    });
+
     it ('creates a new valid class entity', async function() {
 
         const c1 = await createClass("p1",semester,1111111);
 
-        expect(c1.name).to.equal("p1");
-        expect(c1.semester).to.equal(semester);
-        expect(c1.courseId).to.equal(1111111);
+        expect(c1.dataValues.name).to.equal("p1");
+        expect(c1.dataValues.semester).to.equal(semester);
+        expect(c1.dataValues.courseId).to.equal(1111111);
 
     });
 
@@ -198,6 +208,16 @@ describe ('Testes de service', function() {
 
 describe ('Testes de controller', function() {
 
+    let repo: ClassRepository;
+
+    beforeEach( function() {
+        repo = new ClassRepository();
+    });
+    
+    afterEach( function() {
+        repo.deleteAllClasses();
+    });
+
     it ('creates a new class', async function() {
 
         //
@@ -223,4 +243,3 @@ describe ('Testes de controller', function() {
     });
 
 });
-*/

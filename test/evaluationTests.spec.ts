@@ -1,4 +1,4 @@
-/*import { afterEach, beforeEach, describe } from "mocha";
+import { afterEach, beforeEach, describe } from "mocha";
 
 import { Evaluation } from "../src/models/evaluation";
 import { EvaluationRepository } from "../src/repository/evaluationRepository";
@@ -7,6 +7,7 @@ import { expect } from "chai";
 
 
 describe('Testes de repositório', function () {
+
     let evaluationRepository: EvaluationRepository;
 
     beforeEach(function () {
@@ -14,7 +15,7 @@ describe('Testes de repositório', function () {
     });
 
     afterEach(function () {
-        // Cleanup code after each test
+        evaluationRepository.deleteAllEvaluations();
     });
 
     it('deve criar uma nova avaliação', async function () {
@@ -93,6 +94,7 @@ describe('Testes de repositório', function () {
 });
 
 describe('Testes de service', function () {
+    
     let evaluationService: EvaluationService;
     let evaluationRepository: EvaluationRepository;
 
@@ -102,7 +104,7 @@ describe('Testes de service', function () {
     });
 
     afterEach(function () {
-        // Cleanup after each test
+        evaluationRepository.deleteAllEvaluations();
     });
 
     it('deve criar uma nova avaliação', async function () {
@@ -178,4 +180,4 @@ describe('Testes de service', function () {
         const evaluations = await evaluationService.getAllEvaluations();
         expect(evaluations).to.have.lengthOf(0);
     });
-});*/
+});

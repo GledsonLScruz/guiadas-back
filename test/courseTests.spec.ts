@@ -10,14 +10,14 @@ describe ('Testes de repositório', function() {
 
     let repo: CourseRepository;
 
-beforeEach( function() {
-    repo = new CourseRepository();
-    repo.deleteAllCourses();
-});
+    beforeEach( function() {
+        repo = new CourseRepository();
+        repo.deleteAllCourses();
+    });
 
-afterEach( function() {
-    repo.deleteAllCourses();
-});
+    afterEach( function() {
+        repo.deleteAllCourses();
+    });
 
     it ('creates a new course', async function() {
 
@@ -32,7 +32,7 @@ afterEach( function() {
 
         expect(beforeCourses.length).to.equal(0);
 
-       await  repo.createCourse("P1");
+       await repo.createCourse("P1");
        await repo.createCourse("LP1");
        await repo.createCourse("FMCC1");
        await repo.createCourse("IC");
@@ -45,7 +45,7 @@ afterEach( function() {
 
     });
 
-    it ('creates a number of differently courses and tests the filtering function', function() {
+    it ('creates a number of different courses and tests the filtering function', function() {
 
         repo.createCourse("EDA");
         repo.createCourse("LEDA");
@@ -63,20 +63,16 @@ afterEach( function() {
 
     });
 
-    it ('deletes a valid course', function() {
+    it ('deletes a valid course', async function() {
         
-        expect(repo.getAllCourses.length).to.equal(0);
-
-        repo.createCourse("PDW");
-        repo.deleteCourse(1);
+        const p1 = await repo.createCourse("PDW");
+        repo.deleteCourse(p1.id);
 
         expect(repo.getAllCourses.length).to.equal(0);
 
     });
 
     it ('tries to delete a course with an invalid id', async function() {
-
-        expect(repo.getAllCourses.length).to.equal(0);
 
         const pdw = await repo.createCourse("PDW");
 
@@ -88,6 +84,17 @@ afterEach( function() {
 });
 
 describe ('Testes de service', function() {
+
+    let repo: CourseRepository;
+
+    beforeEach( function() {
+        repo = new CourseRepository();
+        repo.deleteAllCourses();
+    });
+
+    afterEach( function() {
+        repo.deleteAllCourses();
+    });
 
     it ('creates a new valid course', async function() {
 
@@ -145,7 +152,7 @@ describe ('Testes de service', function() {
     it ('deletes a valid course using its id', async function() {
 
         const c = await createCourse("PS");
-        deleteCourse(c.id)
+        deleteCourse(c.dataValues.id)
 
         const db = await getCourses();
         expect(db.length).to.equal(0);
@@ -165,6 +172,17 @@ describe ('Testes de service', function() {
 });
 
 describe ('Testes de controller', function() {
+
+    let repo: CourseRepository;
+    
+    beforeEach( function() {
+        repo = new CourseRepository();
+        repo.deleteAllCourses();
+    });
+
+    afterEach( function() {
+        repo.deleteAllCourses();
+    });
 
     it ('posts a valid course', async function() {
 

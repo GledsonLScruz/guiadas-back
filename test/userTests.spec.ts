@@ -1,25 +1,26 @@
-/*import { afterEach, beforeEach, describe } from "mocha";
+import { afterEach, beforeEach, describe } from "mocha";
 import { expect } from "chai";
 import { get } from "http";
 import { createUser, deleteUser, getUsers, updateUser } from "../src/services/userService";
 import { UserRepository } from "../src/repository/userRepository";
 
-let repo = new UserRepository();
 let username = "Maníaco do Café";
 let email = "joab@admin.ufcg.edu.br";
 let password = "empadadefrango";
 let semester = "2024.2";
 let courseId = 1101101;
 
-beforeEach( function() {
-    repo = new UserRepository();
-});
-
-afterEach( function() {
-    repo.deleteAllUsers();
-});
-// username, email, password, startsemester, courseid / all string except courseid
 describe ('Testes de repositório', function() {
+
+    let repo = new UserRepository();
+
+    beforeEach( function() {
+        repo = new UserRepository();
+    });
+
+    afterEach( function() {
+        repo.deleteAllUsers();
+    });
 
     it ('creates a new user', async function() {
 
@@ -78,6 +79,16 @@ describe ('Testes de repositório', function() {
 });
 
 describe ('Testes de service', function() {
+
+    let repo = new UserRepository();
+
+    beforeEach( function() {
+        repo = new UserRepository();
+    });
+
+    afterEach( function() {
+        repo.deleteAllUsers();
+    });
 
     it ('creates a valid user', async function() {
 
@@ -253,4 +264,4 @@ describe ('Testes de controller', function() {
 
     });
 
-});*/
+});

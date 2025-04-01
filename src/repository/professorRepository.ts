@@ -28,4 +28,9 @@ export class ProfessorRepository {
         });
         return result > 0; // Returns true if a Professor was deleted
     }
+
+    // Deletes all Professors
+    async deleteAllProfessors(){
+        Professor.truncate();
+    }
 }

@@ -1,9 +1,10 @@
-/*import { afterEach, beforeEach, describe } from "node:test";
+import { afterEach, beforeEach, describe } from "node:test";
 import { ProfessorRepository } from "../src/repository/professorRepository";
 import { ProfessorService } from "../src/services/professorService";
 import { expect } from "chai";
 
 describe('Testes de repositório', function () {
+
     let professorRepository: ProfessorRepository;
 
     beforeEach(function () {
@@ -11,7 +12,7 @@ describe('Testes de repositório', function () {
     });
 
     afterEach(function () {
-        // Cleanup code after each test
+        professorRepository.deleteAllProfessors();
     });
 
     it('deve criar um novo professor', async function () {
@@ -59,7 +60,7 @@ describe('Testes de service', function () {
     });
 
     afterEach(function () {
-        // Clean up after each test
+        professorRepository.deleteAllProfessors();
     });
 
     it('deve criar um novo professor através do service', async function () {
@@ -92,4 +93,4 @@ describe('Testes de service', function () {
         const professors = await professorService.getProfessors();
         expect(professors).to.have.lengthOf(0);
     });
-});*/
+});
