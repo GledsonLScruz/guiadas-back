@@ -14,10 +14,9 @@ export class EvaluationService {
 
   async createEvaluation(evaluationData: EvaluationCreationAttributes) {
     const evaluation = await this.evaluationRepository.createEvaluation(evaluationData)
-    // grade, comment, name , evalid
     this.criteriaService.createCriteria(evaluationData.didacticGrade,evaluationData.didacticComment,criteriaTypes.DIDACTIC,evaluation.dataValues.id); // Didactic
-    this.criteriaService.createCriteria(evaluationData.evalGrade,evaluationData.evalComment,criteriaTypes.DIDACTIC,evaluation.dataValues.id); // Evaluation methods
-    this.criteriaService.createCriteria(evaluationData.materialGrade,evaluationData.materialComment,criteriaTypes.DIDACTIC,evaluation.dataValues.id); // Bibliography
+    this.criteriaService.createCriteria(evaluationData.evalGrade,evaluationData.evalComment,criteriaTypes.EVALUATION,evaluation.dataValues.id); // Evaluation methods
+    this.criteriaService.createCriteria(evaluationData.materialGrade,evaluationData.materialComment,criteriaTypes.BIBLIOGRAPHY,evaluation.dataValues.id); // Bibliography
     return evaluation
   }
 
