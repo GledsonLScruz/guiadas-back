@@ -14,7 +14,14 @@ export interface EvaluationAttributes {
     semester: String;
 }
 
-export interface EvaluationCreationAttributes extends Optional<EvaluationAttributes, 'id'> { }
+export interface EvaluationCreationAttributes extends Optional<EvaluationAttributes, 'id'> {
+  didacticGrade: number;
+  didacticComment: string;
+  evalGrade: number;
+  evalComment: string;
+  materialGrade: number;
+  materialComment: string;
+}
 
 export class Evaluation extends Model<EvaluationAttributes, EvaluationCreationAttributes> implements EvaluationAttributes {
     public id!: number;
