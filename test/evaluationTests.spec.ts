@@ -23,7 +23,13 @@ describe('Testes de repositório', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationRepository.createEvaluation(evaluationData);
         expect(evaluation).to.have.property('userId', 1);
@@ -37,13 +43,25 @@ describe('Testes de repositório', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluationData2 = {
             userId: 2,
-            professorId: 2,
-            classId: 2,
-            semester: '2023.2'
+            professorId: 1,
+            classId: 1,
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         await evaluationRepository.createEvaluation(evaluationData1);
         await evaluationRepository.createEvaluation(evaluationData2);
@@ -57,7 +75,13 @@ describe('Testes de repositório', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const createdEvaluation = await evaluationRepository.createEvaluation(evaluationData);
         const evaluation = await evaluationRepository.getEvaluationById(createdEvaluation.id);
@@ -72,7 +96,13 @@ describe('Testes de repositório', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationRepository.createEvaluation(evaluationData);
         const updatedEvaluation = await evaluationRepository.updateEvaluation(evaluation.id, { semester: '2023.2' });
@@ -84,7 +114,13 @@ describe('Testes de repositório', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationRepository.createEvaluation(evaluationData);
         await evaluationRepository.deleteEvaluation(evaluation.id);
@@ -112,7 +148,13 @@ describe('Testes de service', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationService.createEvaluation(evaluationData);
         expect(evaluation).to.have.property('userId', 1);
@@ -126,13 +168,25 @@ describe('Testes de service', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluationData2 = {
-            userId: 2,
-            professorId: 2,
-            classId: 2,
-            semester: '2023.2'
+            userId: 1,
+            professorId: 1,
+            classId: 1,
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         await evaluationService.createEvaluation(evaluationData1);
         await evaluationService.createEvaluation(evaluationData2);
@@ -146,7 +200,13 @@ describe('Testes de service', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const createdEvaluation = await evaluationService.createEvaluation(evaluationData);
         const evaluation = await evaluationService.getEvaluationById(createdEvaluation.id);
@@ -161,7 +221,13 @@ describe('Testes de service', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationService.createEvaluation(evaluationData);
         const updatedEvaluation = await evaluationService.updateEvaluation(evaluation.id, { semester: '2023.2' });
@@ -173,7 +239,13 @@ describe('Testes de service', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationService.createEvaluation(evaluationData);
         await evaluationService.deleteEvaluation(evaluation.id);

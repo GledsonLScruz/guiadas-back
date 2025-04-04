@@ -16,13 +16,11 @@ describe('Testes de repositório', function () {
     });
 
     it('deve criar um novo professor', async function () {
-        const professorRepository = new ProfessorRepository();
         const professor = await professorRepository.createProfessor('Professor Teste');
         expect(professor).to.have.property('name', 'Professor Teste');
     });
 
     it('deve retornar todos os professores', async function () {
-        const professorRepository = new ProfessorRepository();
         await professorRepository.createProfessor('Professor 1');
         await professorRepository.createProfessor('Professor 2');
 
@@ -31,7 +29,6 @@ describe('Testes de repositório', function () {
     });
 
     it('deve filtrar professores pelo nome', async function () {
-        const professorRepository = new ProfessorRepository();
         await professorRepository.createProfessor('Professor Filtrado');
         await professorRepository.createProfessor('Outro Professor');
 
@@ -39,8 +36,8 @@ describe('Testes de repositório', function () {
         expect(filteredProfessors).to.have.lengthOf(1);
         expect(filteredProfessors[0]).to.have.property('name', 'Professor Filtrado');
     });
+    
     it('deve deletar um professor', async function () {
-        const professorRepository = new ProfessorRepository();
         const professor = await professorRepository.createProfessor('Professor a Deletar');
 
         await professorRepository.deleteProfessor(professor.id);
