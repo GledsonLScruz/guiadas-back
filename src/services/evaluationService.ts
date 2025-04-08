@@ -1,4 +1,4 @@
-import { EvaluationCreationAttributes, EvaluationAttributes } from '../models/evaluation'
+import { EvaluationCreationAttributes, EvaluationAttributes, Evaluation } from '../models/evaluation'
 import { EvaluationRepository } from '../repository/evaluationRepository'
 import { CriteriaService } from './criteriaService'
 import { criteriaTypes } from '../models/criteriaTypes'
@@ -14,9 +14,6 @@ export class EvaluationService {
 
   async createEvaluation(evaluationData: EvaluationCreationAttributes) {
     const evaluation = await this.evaluationRepository.createEvaluation(evaluationData)
-    this.criteriaService.createCriteria(evaluationData.didacticGrade,evaluationData.didacticComment,criteriaTypes.DIDACTIC,evaluation.dataValues.id); // Didactic
-    this.criteriaService.createCriteria(evaluationData.evalGrade,evaluationData.evalComment,criteriaTypes.EVALUATION,evaluation.dataValues.id); // Evaluation methods
-    this.criteriaService.createCriteria(evaluationData.materialGrade,evaluationData.materialComment,criteriaTypes.BIBLIOGRAPHY,evaluation.dataValues.id); // Bibliography
     return evaluation
   }
 
@@ -24,6 +21,12 @@ export class EvaluationService {
     const evaluation = await this.evaluationRepository.getEvaluationById(id)
     return evaluation
   }
+
+  async getEvaluationByProfessorAndClass(professorId: number, classId: number) {
+    const evaluation = await this.evaluationRepository.getEvaluationByProfessorAndClass(professorId, classId)
+    return evaluation
+  }
+
 
   async getAllEvaluations() {
     const evaluations = await this.evaluationRepository.getAllEvaluations()
@@ -37,10 +40,10 @@ export class EvaluationService {
 
   async deleteEvaluation(id: number) {
     const result = await this.evaluationRepository.deleteEvaluation(id)
-    if (result != null){
+    if (result != null) {
       await this.criteriaService.cascadingCriteriaDeletion(result['id']);
     }
-    
+
     return result
   }
 }

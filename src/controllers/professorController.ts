@@ -49,6 +49,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Returns a professor by an id
+router.get('/:id', async (req, res) => {
+    try {
+        const professors = await professorRepository.getProfessorById(parseInt(req.params.id));
+        res.json(professors); // Returns all professors
+    } catch (error: any) {
+        res.status(500).json({ message: "Erro ao obter os professores", error: error.message });
+    }
+});
+
+
 // Deletes a Professor by id
 router.delete('/:id', async (req, res) => {
     try {

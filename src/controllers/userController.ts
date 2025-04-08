@@ -20,7 +20,7 @@ const router = express.Router();
    *       200:
    *         description: App is up and running
    */
-router.post("/", authenticate, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { username, email, password, startSemester, enrolledCourseId } = req.body;
 

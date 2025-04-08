@@ -11,6 +11,15 @@ export class EvaluationRepository {
     return await Evaluation.findByPk(id)
   }
 
+  async getEvaluationByProfessorAndClass(professorId: number, classId: number) {
+    return await Evaluation.findAll({
+      where: {
+        professorId: professorId,
+        classId: classId
+      }
+    })
+  }
+
   async getAllEvaluations() {
     return await Evaluation.findAll()
   }

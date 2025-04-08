@@ -12,16 +12,15 @@ export interface EvaluationAttributes {
     professorId: Number;
     classId: Number;
     semester: String;
+    didacticGrade: number;
+    didacticComment: string;
+    evalGrade: number;
+    evalComment: string;
+    materialGrade: number;
+    materialComment: string;
 }
 
-export interface EvaluationCreationAttributes extends Optional<EvaluationAttributes, 'id'> {
-  didacticGrade: number;
-  didacticComment: string;
-  evalGrade: number;
-  evalComment: string;
-  materialGrade: number;
-  materialComment: string;
-}
+export interface EvaluationCreationAttributes extends Optional<EvaluationAttributes, 'id'> { }
 
 export class Evaluation extends Model<EvaluationAttributes, EvaluationCreationAttributes> implements EvaluationAttributes {
     public id!: number;
@@ -29,6 +28,12 @@ export class Evaluation extends Model<EvaluationAttributes, EvaluationCreationAt
     public professorId!: Number;
     public classId!: Number;
     public semester!: String;
+    public didacticGrade!: number;
+    public didacticComment!: string;
+    public evalGrade!: number;
+    public evalComment!: string;
+    public materialGrade!: number;
+    public materialComment!: string;
 }
 
 Evaluation.init(
@@ -71,6 +76,42 @@ Evaluation.init(
         semester: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        didacticGrade: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 1,
+                max: 5,
+            },
+        },
+        didacticComment: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        evalGrade: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 1,
+                max: 5,
+            },
+        },
+        evalComment: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        materialGrade: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 1,
+                max: 5,
+            },
+        },
+        materialComment: {
+            type: DataTypes.STRING,
+            allowNull: false,
         }
     }, {
     sequelize,

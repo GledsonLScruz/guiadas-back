@@ -15,6 +15,10 @@ export class ProfessorRepository {
         return await Professor.findAll();
     }
 
+    async getProfessorById(id: number){
+        return await Professor.findByPk(id);
+    } 
+
     // Returns all registered Professors with names matching the given string
     async filteredProfessors(professorName: string) {
         return await Professor.findAll({ where: { name: professorName } });

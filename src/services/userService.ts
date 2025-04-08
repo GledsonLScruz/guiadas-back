@@ -1,4 +1,5 @@
 import { UserRepository } from "../repository/userRepository";
+import { hashPassword} from '../utils/auth';
 
 
 const userRepo = new UserRepository();
@@ -20,11 +21,11 @@ export const createUser = async (
       email: string,
       password: string,
       startSemester: string,
-      enrolledCourseId: string
+      enrolledCourseId: number
 ) => {
 
-      const emailPattern = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@[*[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+]*/;
-
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;      
+      
       if (name.trim().length == 0 || name === null){
             throw new Error("Invalid name");
       }
@@ -41,11 +42,11 @@ export const createUser = async (
             throw new Error("Invalid semester")
       }
 
-      if (enrolledCourseId.trim().length == 0 || enrolledCourseId.trim().length != 7 || enrolledCourseId === null){
+      if ( enrolledCourseId < 0 || enrolledCourseId === null){
             throw new Error("Invalid course id");
       }
 
-      const user = await userRepo.createUser(name, email, password, startSemester, Number(enrolledCourseId));
+      const user = await userRepo.createUser(name, email, await hashPassword(password), startSemester, enrolledCourseId);
       return user;
 
       }

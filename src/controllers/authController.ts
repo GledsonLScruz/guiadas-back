@@ -13,8 +13,10 @@ router.post('/login', async (req, res) => {
             res.status(400).json({ message: 'Invalid username or password' });
             return;
         }
+        console.log("usuarioooo")
+        console.log(user.dataValues);
         // Compara a senha fornecida com a senha armazenada
-        const isPasswordValid = await comparePassword(password, user.password);
+        const isPasswordValid = await comparePassword(password, user.dataValues.password);
         if (!isPasswordValid) {
             res.status(400).json({ message: 'Invalid username or password' });
             return;
@@ -23,6 +25,7 @@ router.post('/login', async (req, res) => {
         const token = generateToken(user.id, user.username);
         res.status(200).json({ message: 'Login successful', token });
     } catch (err) {
+        console.log(err);
         res.status(500).json({ message: 'Error logging in', error: err });
     }
 });

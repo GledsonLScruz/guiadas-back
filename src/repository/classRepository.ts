@@ -3,18 +3,23 @@ import { Class } from "../models/class";
 export class ClassRepository {
 
     // Creates a new Class entity
-    async createClass(name: string, semester: string, courseId: number) {
+    async createClass(name: string, semester: string, courseId: number,professorId: number) {
         // Uses the `create` method to save the new instance in the Database
         return await Class.create({
             name: name,
             semester: semester,
-            courseId: courseId
+            courseId: courseId,
+            professorId: professorId,
         });
     }
 
     // Returns all saved Class entities
     async getAllClasses() {
         return await Class.findAll();
+    }
+
+    async getClassesByProfessorId(professorId: number){
+        return await Class.findAll({where: {professorId: professorId}});
     }
 
     // Returns all saved Class entities with the given Course ID
