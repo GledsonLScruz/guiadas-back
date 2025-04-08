@@ -8,7 +8,11 @@ export const getClasses = async () => {
 
 }
 
-export const createClass = (className: string, semester: string, courseId: number) => {
+export const getClassesByProfessorId = async (professorId: number) => {
+    return await classRepository.getClassesByProfessorId(professorId);
+}
+
+export const createClass = (className: string, semester: string, courseId: number,professorId: number) => {
 
     if (className.trim().length > 0 || className != null) {
         throw new Error("Invalid class name");
@@ -22,7 +26,11 @@ export const createClass = (className: string, semester: string, courseId: numbe
         throw new Error("Invalid course id");
     }
 
-    const newClass = classRepository.createClass(className, semester, courseId);
+    if (professorId != null){
+        throw new Error("Invalid professor id");
+    }
+
+    const newClass = classRepository.createClass(className, semester, courseId,professorId);
     return newClass;
 
 }

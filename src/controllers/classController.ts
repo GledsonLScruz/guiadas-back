@@ -1,5 +1,5 @@
 import * as express from "express";
-import { createClass, deleteClass, getClasses } from '../services/classService';
+import { createClass, deleteClass, getClasses, getClassesByProfessorId } from '../services/classService';
 import { authenticate } from "../middlewares/authMiddleWare";
 
 const router = express.Router();
@@ -19,14 +19,14 @@ const router = express.Router();
 // Creates a new instance of a Class entity, and returns it to its creator
 router.post('/', authenticate, async (req, res) => {
     try {
-        const { name, semester, courseId } = req.body;
+        const { name, semester, courseId, professorId } = req.body;
 
-        if (!name || !semester || !courseId) {
+        if (!name || !semester || !courseId || !professorId) {
             res.status(400).json({ message: "Todos os campos são obrigatórios" });
             return;
         }
 
-        const pclass = await createClass(name, semester, courseId);
+        const pclass = await createClass(name, semester, courseId,professorId);
         res.json(pclass); // Returns the created Class entity
 
     } catch (error: any) {
@@ -38,6 +38,16 @@ router.post('/', authenticate, async (req, res) => {
 router.get('/', authenticate, async (req, res) => {
     try {
         const classes = await getClasses();
+        res.json(classes); // Returns all class entities
+    } catch (error: any) {
+        res.status(500).json({ message: "Erro ao obter as classes", error: error.message });
+    }
+});
+
+// Returns all Class for a professor 
+router.get('/:id', authenticate, async (req, res) => {
+    try {
+        const classes = await getClassesByProfessorId(Number(req.params.id));
         res.json(classes); // Returns all class entities
     } catch (error: any) {
         res.status(500).json({ message: "Erro ao obter as classes", error: error.message });

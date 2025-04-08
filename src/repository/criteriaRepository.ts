@@ -41,4 +41,7 @@ export class CriteriaRepository {
     return await Criteria.findByPk(id);
   }
 
+  async deleteAllCriteria(){
+    Criteria.truncate();
+  }
 }

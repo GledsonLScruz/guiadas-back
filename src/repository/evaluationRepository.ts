@@ -1,4 +1,5 @@
 
+import { truncate } from 'fs'
 import { Evaluation, EvaluationCreationAttributes, EvaluationAttributes } from '../models/evaluation'
 
 export class EvaluationRepository {
@@ -8,6 +9,15 @@ export class EvaluationRepository {
 
   async getEvaluationById(id: number) {
     return await Evaluation.findByPk(id)
+  }
+
+  async getEvaluationByProfessorAndClass(professorId: number, classId: number) {
+    return await Evaluation.findAll({
+      where: {
+        professorId: professorId,
+        classId: classId
+      }
+    })
   }
 
   async getAllEvaluations() {
@@ -28,6 +38,10 @@ export class EvaluationRepository {
       return null
     }
     return await evaluation.destroy()
+  }
+
+  async deleteAllEvaluations(){
+    Evaluation.truncate();
   }
 }
 

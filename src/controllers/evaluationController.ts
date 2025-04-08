@@ -1,14 +1,12 @@
 
 import express from "express";
-import {
-    createEvaluation,
-    getEvaluationById,
-    getAllEvaluations,
-    updateEvaluation,
-    deleteEvaluation,
-} from "../services/evaluationService";
+import { EvaluationService } from "../services/evaluationService";
+import { EvaluationRepository } from "../repository/evaluationRepository";
 
 const router = express.Router();
+
+let evaluationRepository = new EvaluationRepository();
+let evaluationService = new EvaluationService(evaluationRepository);
 
 /**
  * @openapi
@@ -47,11 +45,12 @@ const router = express.Router();
  */
 router.post("/", async (req, res) => {
     try {
-        const { userId, professorId, classId, semester } = req.body;
+        const { userId, professorId, classId, semester, didacticGrade, didacticComment, evalGrade, evalComment, materialGrade, materialComment } = req.body;
         if (!userId || !professorId || !classId || !semester) {
             res.status(400).json({ message: "Todos os campos são obrigatórios" });
         }
-        const evaluation = await createEvaluation({ userId, professorId, classId, semester });
+        const evaluation = await evaluationService.createEvaluation({userId, professorId, classId, semester, didacticGrade, didacticComment, evalGrade, evalComment, materialGrade, materialComment });
+
         res.json(evaluation);
     } catch (error: any) {
         res.status(500).json({ message: "Erro ao criar avaliação", error: error.message });
@@ -73,7 +72,7 @@ router.post("/", async (req, res) => {
  */
 router.get("/", async (req, res) => {
     try {
-        const evaluations = await getAllEvaluations();
+        const evaluations = await evaluationService.getAllEvaluations();
         res.json(evaluations);
     } catch (error: any) {
         res.status(500).json({ message: "Erro ao obter avaliações", error: error.message });
@@ -105,7 +104,21 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const evaluation = await getEvaluationById(Number(id));
+        const evaluation = await evaluationService.getEvaluationById(Number(id));
+        if (!evaluation) {
+            res.status(404).json({ message: "Avaliação não encontrada" });
+        }
+        res.json(evaluation);
+    } catch (error: any) {
+        res.status(500).json({ message: "Erro ao obter avaliação", error: error.message });
+    }
+});
+
+
+router.get("/view/:professorId/:classId", async (req, res) => {
+    try {
+        const { professorId, classId } = req.params;
+        const evaluation = await evaluationService.getEvaluationByProfessorAndClass(Number(professorId), Number(classId));
         if (!evaluation) {
             res.status(404).json({ message: "Avaliação não encontrada" });
         }
@@ -161,7 +174,7 @@ router.put("/:id", async (req, res) => {
         if (!userId || !professorId || !classId || !semester) {
             res.status(400).json({ message: "Todos os campos são obrigatórios" });
         }
-        const updatedEvaluation = await updateEvaluation(Number(id), { userId, professorId, classId, semester });
+        const updatedEvaluation = await evaluationService.updateEvaluation(Number(id), { userId, professorId, classId, semester });
         if (!updatedEvaluation) {
             res.status(404).json({ message: "Avaliação não encontrada" });
         }
@@ -196,7 +209,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const result = await deleteEvaluation(Number(id));
+        const result = await evaluationService.deleteEvaluation(Number(id));
         if (!result) {
             res.status(404).json({ message: "Avaliação não encontrada" });
         }

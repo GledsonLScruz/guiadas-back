@@ -1,26 +1,26 @@
 import { afterEach, beforeEach, describe } from "mocha";
 import { expect } from "chai";
-import { User } from "../models/user";
-import { UserRepository } from "../repository/userRepository";
-import { getUsers, createUser, deleteUser, updateUser } from "../services/userService";
 import { get } from "http";
+import { createUser, deleteUser, getUsers, updateUser } from "../src/services/userService";
+import { UserRepository } from "../src/repository/userRepository";
 
-let repo = new UserRepository();
 let username = "Maníaco do Café";
 let email = "joab@admin.ufcg.edu.br";
 let password = "empadadefrango";
 let semester = "2024.2";
 let courseId = 1101101;
 
-beforeEach( function() {
-    repo = new UserRepository();
-});
-
-afterEach( function() {
-    repo.deleteAllUsers();
-});
-// username, email, password, startsemester, courseid / all string except courseid
 describe ('Testes de repositório', function() {
+
+    let repo = new UserRepository();
+
+    beforeEach( function() {
+        repo = new UserRepository();
+    });
+
+    afterEach( function() {
+        repo.deleteAllUsers();
+    });
 
     it ('creates a new user', async function() {
 
@@ -79,6 +79,16 @@ describe ('Testes de repositório', function() {
 });
 
 describe ('Testes de service', function() {
+
+    let repo = new UserRepository();
+
+    beforeEach( function() {
+        repo = new UserRepository();
+    });
+
+    afterEach( function() {
+        repo.deleteAllUsers();
+    });
 
     it ('creates a valid user', async function() {
 
@@ -176,19 +186,19 @@ describe ('Testes de service', function() {
 
         updateUser(u1.id, username, email, "novasenha", semester, String(courseId));
 
-        const user = await getUsers()[0];
+        const users = await getUsers();
+        const user = users[0];
         expect(user.password).to.equal("novasenha")
 
     });
-
     it ('tries to update a user using a wrong id', async function() {
 
         const u1 = await createUser(username, email, password, semester, String(courseId));
 
         updateUser(u1.id+1, username, email, "novasenha", semester, String(courseId));
 
-        const user = await getUsers()[0];
-        expect(user.password).to.equal(password);
+        const users = await getUsers();
+        expect(users[0].password).to.equal(password);
 
     });
 

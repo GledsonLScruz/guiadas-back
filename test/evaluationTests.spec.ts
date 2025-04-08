@@ -1,16 +1,13 @@
 import { afterEach, beforeEach, describe } from "mocha";
 
-import { Evaluation } from "../models/evaluation";
-import { EvaluationRepository } from "../repository/evaluationRepository";
-import { EvaluationService } from "../services/evaluationService";
+import { Evaluation } from "../src/models/evaluation";
+import { EvaluationRepository } from "../src/repository/evaluationRepository";
+import { EvaluationService } from "../src/services/evaluationService";
+import { expect } from "chai";
 
-const { chai } = require('chai');
-const expect = chai.expect;
-const it = chai.expect;
-
-const { mocha } = require('mocha');
 
 describe('Testes de repositório', function () {
+
     let evaluationRepository: EvaluationRepository;
 
     beforeEach(function () {
@@ -18,7 +15,7 @@ describe('Testes de repositório', function () {
     });
 
     afterEach(function () {
-        // Cleanup code after each test
+        evaluationRepository.deleteAllEvaluations();
     });
 
     it('deve criar uma nova avaliação', async function () {
@@ -26,7 +23,13 @@ describe('Testes de repositório', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationRepository.createEvaluation(evaluationData);
         expect(evaluation).to.have.property('userId', 1);
@@ -40,13 +43,25 @@ describe('Testes de repositório', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluationData2 = {
             userId: 2,
-            professorId: 2,
-            classId: 2,
-            semester: '2023.2'
+            professorId: 1,
+            classId: 1,
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         await evaluationRepository.createEvaluation(evaluationData1);
         await evaluationRepository.createEvaluation(evaluationData2);
@@ -60,7 +75,13 @@ describe('Testes de repositório', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const createdEvaluation = await evaluationRepository.createEvaluation(evaluationData);
         const evaluation = await evaluationRepository.getEvaluationById(createdEvaluation.id);
@@ -75,7 +96,13 @@ describe('Testes de repositório', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationRepository.createEvaluation(evaluationData);
         const updatedEvaluation = await evaluationRepository.updateEvaluation(evaluation.id, { semester: '2023.2' });
@@ -87,7 +114,13 @@ describe('Testes de repositório', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationRepository.createEvaluation(evaluationData);
         await evaluationRepository.deleteEvaluation(evaluation.id);
@@ -97,6 +130,7 @@ describe('Testes de repositório', function () {
 });
 
 describe('Testes de service', function () {
+    
     let evaluationService: EvaluationService;
     let evaluationRepository: EvaluationRepository;
 
@@ -106,7 +140,7 @@ describe('Testes de service', function () {
     });
 
     afterEach(function () {
-        // Cleanup after each test
+        evaluationRepository.deleteAllEvaluations();
     });
 
     it('deve criar uma nova avaliação', async function () {
@@ -114,7 +148,13 @@ describe('Testes de service', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationService.createEvaluation(evaluationData);
         expect(evaluation).to.have.property('userId', 1);
@@ -128,13 +168,25 @@ describe('Testes de service', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluationData2 = {
-            userId: 2,
-            professorId: 2,
-            classId: 2,
-            semester: '2023.2'
+            userId: 1,
+            professorId: 1,
+            classId: 1,
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         await evaluationService.createEvaluation(evaluationData1);
         await evaluationService.createEvaluation(evaluationData2);
@@ -148,7 +200,13 @@ describe('Testes de service', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const createdEvaluation = await evaluationService.createEvaluation(evaluationData);
         const evaluation = await evaluationService.getEvaluationById(createdEvaluation.id);
@@ -163,7 +221,13 @@ describe('Testes de service', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationService.createEvaluation(evaluationData);
         const updatedEvaluation = await evaluationService.updateEvaluation(evaluation.id, { semester: '2023.2' });
@@ -175,7 +239,13 @@ describe('Testes de service', function () {
             userId: 1,
             professorId: 1,
             classId: 1,
-            semester: '2023.1'
+            semester: '2023.1',
+            didacticGrade: 4,
+            didacticComment: "",
+            evalGrade: 4,
+            evalComment: "",
+            materialGrade: 4,
+            materialComment: ""
         };
         const evaluation = await evaluationService.createEvaluation(evaluationData);
         await evaluationService.deleteEvaluation(evaluation.id);
