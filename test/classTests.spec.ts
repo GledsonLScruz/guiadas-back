@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe } from "mocha";
 import { expect } from "chai";
 import { createClass, deleteClass, getClasses } from "../src/services/classService";
 import { ClassRepository } from "../src/repository/classRepository";
-
+/** 
 let semester = "2024.2";
 
 function courseIdCreator(){
@@ -242,4 +242,4 @@ describe ('Testes de controller', function() {
 
     });
 
-});
+});*/

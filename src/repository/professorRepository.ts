@@ -1,4 +1,6 @@
 import { Professor } from "../models/professor";
+import { Op } from 'sequelize';
+
 
 export class ProfessorRepository {
 
@@ -15,13 +17,19 @@ export class ProfessorRepository {
         return await Professor.findAll();
     }
 
-    async getProfessorById(id: number){
+    async getProfessorById(id: number) {
         return await Professor.findByPk(id);
-    } 
+    }
 
     // Returns all registered Professors with names matching the given string
     async filteredProfessors(professorName: string) {
-        return await Professor.findAll({ where: { name: professorName } });
+        return await Professor.findAll({
+            where: {
+                name: {
+                    [Op.like]: `%${professorName}%`,
+                },
+            },
+        });
     }
 
 
@@ -34,7 +42,7 @@ export class ProfessorRepository {
     }
 
     // Deletes all Professors
-    async deleteAllProfessors(){
-        Professor.truncate();
+    async deleteAllProfessors() {
+        await Professor.truncate({ cascade: true });
     }
 }

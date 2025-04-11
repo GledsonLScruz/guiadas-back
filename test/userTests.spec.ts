@@ -92,7 +92,7 @@ describe ('Testes de service', function() {
 
     it ('creates a valid user', async function() {
 
-        const u1 = await createUser(username, email, password, semester, String(courseId));
+        const u1 = await createUser(username, email, password, semester, courseId);
 
         expect(u1.username).to.equal(username);
         expect(u1.email).to.equal(email);
@@ -104,85 +104,72 @@ describe ('Testes de service', function() {
 
     it ('tries to create a user with a blank username', async function() {
 
-        expect(await createUser("      ", email, password, semester, String(courseId))).to.throw("Invalid name");
+        expect(await createUser("      ", email, password, semester,(courseId))).to.throw("Invalid name");
 
     });
 
     it ('tries to create a user with an empty username', async function() {
 
-        expect(await createUser("", email, password, semester, String(courseId))).to.throw("Invalid name");
+        expect(await createUser("", email, password, semester, (courseId))).to.throw("Invalid name");
 
     });
 
     it ('tries to create a user using an invalid email', async function() {
 
-        expect(await createUser(username, "emaildocurso#ufcg.edu.br", password, semester, String(courseId))).to.throw("Invalid email");
+        expect(await createUser(username, "emaildocurso#ufcg.edu.br", password, semester, (courseId))).to.throw("Invalid email");
 
     });
 
     it ('tries to create a user with invalid email (non-UFCG)', async function() {
 
-        expect(await createUser(username, "claudiolucena@ccj.uepb.edu.br", password, semester, String(courseId))).to.throw("Invalid email");
+        expect(await createUser(username, "claudiolucena@ccj.uepb.edu.br", password, semester, (courseId))).to.throw("Invalid email");
 
     });
 
     it ('tries to create a user with blank password', async function() {
 
-        expect(await createUser(username, email, "      ", semester, String(courseId))).to.throw("Invalid password");
+        expect(await createUser(username, email, "      ", semester, (courseId))).to.throw("Invalid password");
 
     });
 
     it ('tries to create a user with empty password', async function() {
 
-        expect(await createUser(username, email, "", semester, String(courseId))).to.throw("Invalid password");
+        expect(await createUser(username, email, "", semester, (courseId))).to.throw("Invalid password");
 
     });
 
     it ('tries to create a user with a short password', async function() {
 
-        expect(await createUser(username, email, "senha", semester, String(courseId))).to.throw("Invalid password");
+        expect(await createUser(username, email, "senha", semester, (courseId))).to.throw("Invalid password");
 
     });
 
     it ('tries to create a user with a blank start semester', async function() {
 
-        expect(await createUser(username, email, password, "   ", String(courseId))).to.throw("Invalid semester");
-
+        expect(await createUser(username, email, password, "   ", (courseId))).to.throw("Invalid semester");
     });
 
     it ('tries to create a user with an empty start semester', async function() {
 
-        expect(await createUser(username, email, password, "", String(courseId))).to.throw("Invalid semester");
+        expect(await createUser(username, email, password, "", (courseId))).to.throw("Invalid semester");
 
     });
 
     it ('tries to create a user with a wrong-sized semester', async function() {
 
-        expect(await createUser(username, email, password, "24.2", String(courseId))).to.throw("Invalid semester");
-
-    });
-
-    it ('tries to create a user with blank course id', async function() {
-
-        expect(await createUser(username, email, password, semester, "     ")).to.throw("Invalid course id");
-
-    });
-
-    it ('tries to create a user with empty course id', async function() {
-
-        expect(await createUser(username, email, password, semester, "")).to.throw("Invalid course id");
+        expect(await createUser(username, email, password, "24.2", (courseId))).to.throw("Invalid semester");
 
     });
 
     it ('tries to create a user with wrong course id (size != 7)', async function() {
 
-        expect(await createUser(username, email, password, semester, "96321")).to.throw("Invalid course id");
+        expect(await createUser(username, email, password, semester, 23312313)).to.throw("Invalid course id");
 
     });
 
     it ('successfully updates a user', async function() {
 
-        const u1 = await createUser(username, email, password, semester, String(courseId));
+        const u1 = await createUser(username, email, password, semester, (courseId));
 
         updateUser(u1.id, username, email, "novasenha", semester, String(courseId));
 
@@ -193,7 +180,7 @@ describe ('Testes de service', function() {
     });
     it ('tries to update a user using a wrong id', async function() {
 
-        const u1 = await createUser(username, email, password, semester, String(courseId));
+        const u1 = await createUser(username, email, password, semester, (courseId));
 
         updateUser(u1.id+1, username, email, "novasenha", semester, String(courseId));
 
@@ -204,7 +191,7 @@ describe ('Testes de service', function() {
 
     it ('deletes a user using its id', async function() {
 
-        const u1 = await createUser(username, email, password, semester, String(courseId));
+        const u1 = await createUser(username, email, password, semester, (courseId));
 
         deleteUser(u1.id);
 
@@ -215,7 +202,7 @@ describe ('Testes de service', function() {
 
     it ('tries to delete a user using a wrong id', async function() {
 
-        const u1 = await createUser(username, email, password, semester, String(courseId));
+        const u1 = await createUser(username, email, password, semester, (courseId));
 
         deleteUser(u1.id+1);
 
