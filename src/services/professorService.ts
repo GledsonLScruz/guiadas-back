@@ -30,7 +30,7 @@ export class ProfessorService {
 
     async deleteProfessor(professorId: number) {
         try {
-            await this.professorRepository.deleteProfessor(Number(professorId));
+            return await this.professorRepository.deleteProfessor(Number(professorId));
         } catch (error: any) {
             throw new Error("Invalid id");
         }

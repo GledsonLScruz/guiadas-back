@@ -23,6 +23,10 @@ export class CriteriaService {
     return await this.criteriaRepository.deleteCriteria(id);
   }
 
+  async deleteAllCriterias() {
+    return await this.criteriaRepository.deleteAllCriteria();
+  }
+
   async cascadingCriteriaDeletion(evaluationId: number){
     return await this.deleteCriteria(evaluationId);
   }

@@ -1,14 +1,18 @@
-import { afterEach, beforeEach, describe } from "mocha";
+import { afterEach, before, beforeEach, describe } from "mocha";
 import { CriteriaRepository } from "../src/repository/criteriaRepository";
 import { CriteriaService } from "../src/services/criteriaService";
 import { expect } from "chai";
 
-describe('Testes de repositório', function () {
+describe('Testes de repositório Criteria', function () {
 
     let criteriaRepository: CriteriaRepository;
 
-    beforeEach(function () {
+    before(function () {
         criteriaRepository = new CriteriaRepository();
+    });
+
+    beforeEach(function () {
+        criteriaRepository.deleteAllCriteria();
     });
 
     afterEach(function () {
@@ -28,10 +32,10 @@ describe('Testes de repositório', function () {
             criteriaData.name,
             criteriaData.evaluationId
         );
-        expect(criteria).to.have.property('grade', 5);
-        expect(criteria).to.have.property('comment', 'Excelente professor');
-        expect(criteria).to.have.property('name', 'Didática');
-        expect(criteria).to.have.property('evaluationId', 1);
+        expect(criteria.dataValues).to.have.property('grade', '5');
+        expect(criteria.dataValues).to.have.property('comment', 'Excelente professor');
+        expect(criteria.dataValues).to.have.property('name', 'Didática');
+        expect(criteria.dataValues).to.have.property('evaluationId', 1);
     });
 
     it('deve retornar todos os critérios', async function () {
@@ -78,7 +82,7 @@ describe('Testes de repositório', function () {
             criteriaData.evaluationId
         );
         await criteriaRepository.updateCriteria(
-            Number(criteria.id),
+            Number(criteria.dataValues.id),
             4,
             'Bom professor',
             'Didática',
@@ -86,8 +90,8 @@ describe('Testes de repositório', function () {
         );
         const criterias = await criteriaRepository.getAllCriteria();
         const updatedCriteria = criterias.find((c: { id: any; }) => c.id === criteria.id);
-        expect(updatedCriteria).to.have.property('grade', 4);
-        expect(updatedCriteria).to.have.property('comment', 'Bom professor');
+        expect(updatedCriteria?.dataValues).to.have.property('grade', '4');
+        expect(updatedCriteria?.dataValues).to.have.property('comment', 'Bom professor');
     });
 
     it('deve deletar um critério', async function () {
@@ -103,24 +107,23 @@ describe('Testes de repositório', function () {
             criteriaData.name,
             criteriaData.evaluationId
         );
-        await criteriaRepository.deleteCriteria(Number(criteria.id));
+        await criteriaRepository.deleteCriteria(Number(criteria.dataValues.id));
         const criterias = await criteriaRepository.getAllCriteria();
         expect(criterias).to.have.lengthOf(0);
     });
 });
 
-describe('Testes de service', function () {
+describe('Testes de service Criteria', function () {
 
     let criteriaService: CriteriaService;
-    let criteriaRepository: CriteriaRepository;
 
-    beforeEach(function () {
-        criteriaRepository = new CriteriaRepository();
+    before(function () {
+        let criteriaRepository = new CriteriaRepository();
         criteriaService = new CriteriaService(criteriaRepository);
     });
 
-    afterEach(function () {
-        criteriaRepository.deleteAllCriteria();
+    beforeEach(async function () {
+        await criteriaService.deleteAllCriterias();
     });
 
     it('deve criar um novo critério', async function () {
@@ -136,10 +139,10 @@ describe('Testes de service', function () {
             criteriaData.name,
             criteriaData.evaluationId
         );
-        expect(criteria).to.have.property('grade', 5);
-        expect(criteria).to.have.property('comment', 'Excelente professor');
-        expect(criteria).to.have.property('name', 'Didática');
-        expect(criteria).to.have.property('evaluationId', 1);
+        expect(criteria.dataValues).to.have.property('grade', '5');
+        expect(criteria.dataValues).to.have.property('comment', 'Excelente professor');
+        expect(criteria.dataValues).to.have.property('name', 'Didática');
+        expect(criteria.dataValues).to.have.property('evaluationId', 1);
     });
 
     it('deve retornar todos os critérios', async function () {
@@ -185,11 +188,11 @@ describe('Testes de service', function () {
             criteriaData.name,
             criteriaData.evaluationId
         );
-        const criteria = await criteriaService.getCriteriaById(createdCriteria.id);
-        expect(criteria).to.have.property('grade', 5);
-        expect(criteria).to.have.property('comment', 'Excelente professor');
-        expect(criteria).to.have.property('name', 'Didática');
-        expect(criteria).to.have.property('evaluationId', 1);
+        const criteria = await criteriaService.getCriteriaById(createdCriteria.dataValues.id);
+        expect(criteria?.dataValues).to.have.property('grade', '5');
+        expect(criteria?.dataValues).to.have.property('comment', 'Excelente professor');
+        expect(criteria?.dataValues).to.have.property('name', 'Didática');
+        expect(criteria?.dataValues).to.have.property('evaluationId', 1);
     });
 
     it('deve atualizar um critério', async function () {
@@ -206,14 +209,16 @@ describe('Testes de service', function () {
             criteriaData.evaluationId
         );
         const updatedCriteria = await criteriaService.updateCriteria(
-            Number(criteria.id),
+            Number(criteria.dataValues.id),
             4,
             'Bom professor',
             'Didática',
             1
         );
-        expect(updatedCriteria).to.have.property('grade', 4);
-        expect(updatedCriteria).to.have.property('comment', 'Bom professor');
+        const updatedCriteriaValue = await criteriaService.getCriteriaById(Number(criteria.dataValues.id));
+
+        expect(updatedCriteriaValue?.dataValues).to.have.property('grade', '4');
+        expect(updatedCriteriaValue?.dataValues).to.have.property('comment', 'Bom professor');
     });
 
     it('deve deletar um critério', async function () {
@@ -229,7 +234,7 @@ describe('Testes de service', function () {
             criteriaData.name,
             criteriaData.evaluationId
         );
-        await criteriaService.deleteCriteria(Number(criteria.id));
+        await criteriaService.deleteCriteria(Number(criteria.dataValues.id));
         const criterias = await criteriaService.getAllCriteria();
         expect(criterias).to.have.lengthOf(0);
     });

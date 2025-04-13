@@ -34,14 +34,14 @@ export class CriteriaRepository {
   }
 
   async deleteCriteria(id: number) {
-    return await Criteria.destroy({ where: { id } });
+    return await Criteria.destroy({ where: { id:id } });
   }
 
   async getCriteriaById(id: number) {
     return await Criteria.findByPk(id);
   }
 
-  async deleteAllCriteria(){
-    Criteria.truncate();
+  async deleteAllCriteria() {
+    Criteria.truncate({ cascade: true });
   }
 }
